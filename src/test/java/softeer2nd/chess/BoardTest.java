@@ -10,14 +10,14 @@ public class BoardTest {
     public void create() {
         Board board = new Board();
 
-        Pawn white = new Pawn(Pawn.WHITE);
-        board.add(white);
-        assertThat(1).isEqualTo(board.size());
-        assertThat(white).isEqualTo(board.findPawn(0));
+        verifyBoard(board, Pawn.WHITE, 1, 0);
+        verifyBoard(board, Pawn.BLACK, 2, 1);
+    }
 
-        Pawn black = new Pawn(Pawn.BLACK);
-        board.add(black);
-        assertThat(2).isEqualTo(board.size());
-        assertThat(black).isEqualTo(board.findPawn(1));
+    public void verifyBoard(Board board, String color, int size, int idx) {
+        Pawn pawn = new Pawn(color);
+        board.add(pawn);
+        assertThat(size).isEqualTo(board.size());
+        assertThat(pawn).isEqualTo(board.findPawn(idx));
     }
 }
