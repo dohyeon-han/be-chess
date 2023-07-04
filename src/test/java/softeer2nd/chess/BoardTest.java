@@ -19,6 +19,14 @@ public class BoardTest {
         verifyBoard(board, black, 2, 1);
     }
 
+    @Test
+    public void initialize() {
+        Board board = new Board();
+        board.initialize();
+        assertThat(board.getWhitePawnsResult()).isEqualTo("pppppppp");
+        assertThat(board.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
+    }
+
     private Pawn addPawn(Board board, String color, char representation) {
         Pawn pawn = new Pawn(color, representation);
         board.add(pawn);
