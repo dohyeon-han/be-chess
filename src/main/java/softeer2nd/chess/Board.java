@@ -35,4 +35,19 @@ public class Board {
                 .map(String::valueOf)
                 .collect(Collectors.joining());
     }
+
+    public void print() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == null) {
+                    builder.append('.');
+                } else {
+                    builder.append(board[i][j].getRepresentation());
+                }
+            }
+            builder.append('\n');
+        }
+        System.out.println(builder);
+    }
 }
