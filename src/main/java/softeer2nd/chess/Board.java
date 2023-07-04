@@ -1,22 +1,49 @@
 package softeer2nd.chess;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Board {
 
-    private final List<Pawn> pieces = new ArrayList<>();
+    private final Pawn[][] board = new Pawn[8][8];
 
-    public void add(Pawn pawn){
-        pieces.add(pawn);
+    public void initialize() {
+        for (int i = 0; i < 8; i++) {
+            Pawn white = new Pawn();
+            board[1][i] = white;
+
+            Pawn black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
+            board[6][i] = black;
+        }
     }
 
-    public int size() {
-        return pieces.size();
+    public String getWhitePawnsResult() {
+        return getRepresentationResult(board[1]);
     }
 
-    public Pawn findPawn(int idx) {
-        return pieces.get(idx);
+    public String getBlackPawnsResult() {
+        return getRepresentationResult(board[6]);
+    }
+
+    private String getRepresentationResult(Pawn[] row) {
+        return Arrays.stream(row)
+                .map(Pawn::getRepresentation)
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+    }
+
+    public void print() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == null) {
+                    builder.append('.');
+                } else {
+                    builder.append(board[i][j].getRepresentation());
+                }
+            }
+            builder.append('\n');
+        }
+        System.out.println(builder);
     }
 }
