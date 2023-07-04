@@ -18,14 +18,15 @@ public class Board {
     }
 
     public String getWhitePawnsResult() {
-        return Arrays.stream(board[1])
-                .map(Pawn::getRepresentation)
-                .map(String::valueOf)
-                .collect(Collectors.joining());
+        return getRepresentationResult(board[1]);
     }
 
     public String getBlackPawnsResult() {
-        return Arrays.stream(board[6])
+        return getRepresentationResult(board[6]);
+    }
+
+    private String getRepresentationResult(Pawn[] row) {
+        return Arrays.stream(row)
                 .map(Pawn::getRepresentation)
                 .map(String::valueOf)
                 .collect(Collectors.joining());
