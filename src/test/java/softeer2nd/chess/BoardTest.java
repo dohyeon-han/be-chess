@@ -12,8 +12,8 @@ public class BoardTest {
     public void create() {
         Board board = new Board();
 
-        verifyBoard(board, Pawn.WHITE, 1, 0);
-        verifyBoard(board, Pawn.BLACK, 2, 1);
+        verifyBoard(board, Pawn.WHITE_COLOR, 1, 0);
+        verifyBoard(board, Pawn.BLACK_COLOR, 2, 1);
     }
 
     public void verifyBoard(Board board, String color, int size, int idx) {
