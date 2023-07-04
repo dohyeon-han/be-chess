@@ -12,13 +12,20 @@ public class BoardTest {
     public void create() {
         Board board = new Board();
 
-        verifyBoard(board, Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION, 1, 0);
-        verifyBoard(board, Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION, 2, 1);
+        Pawn white = addPawn(board, Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
+        verifyBoard(board, white, 1, 0);
+
+        Pawn black = addPawn(board, Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
+        verifyBoard(board, black, 2, 1);
     }
 
-    public void verifyBoard(Board board, String color, char representation, int size, int idx) {
+    public Pawn addPawn(Board board, String color, char representation) {
         Pawn pawn = new Pawn(color, representation);
         board.add(pawn);
+        return pawn;
+    }
+
+    public void verifyBoard(Board board, Pawn pawn, int size, int idx) {
         assertThat(size).isEqualTo(board.size());
         assertThat(pawn).isEqualTo(board.findPawn(idx));
     }
