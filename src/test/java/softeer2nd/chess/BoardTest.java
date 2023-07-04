@@ -1,5 +1,6 @@
 package softeer2nd.chess;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BoardTest {
 
     @Test
+    @DisplayName("흰 폰과 검정 폰이 체스판에 추가된다.")
     public void create() {
         Board board = new Board();
 
