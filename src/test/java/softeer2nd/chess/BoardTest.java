@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BoardTest {
 
     @Test
+    @DisplayName("폰을 출력한다.")
     public void initialize() {
         Board board = new Board();
         board.initialize();
