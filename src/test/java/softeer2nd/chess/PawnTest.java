@@ -22,7 +22,7 @@ class PawnTest {
         assertThat(pawn.getRepresentation()).isEqualTo(Pawn.WHITE_REPRESENTATION);
     }
 
-    public void verifyPawn(final String color, final char representation){
+    private void verifyPawn(final String color, final char representation){
         Pawn pawn = new Pawn(color, representation);
         assertThat(pawn.getColor()).isEqualTo(color);
         assertThat(pawn.getRepresentation()).isEqualTo(representation);

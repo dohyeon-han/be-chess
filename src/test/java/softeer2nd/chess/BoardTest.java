@@ -19,13 +19,13 @@ public class BoardTest {
         verifyBoard(board, black, 2, 1);
     }
 
-    public Pawn addPawn(Board board, String color, char representation) {
+    private Pawn addPawn(Board board, String color, char representation) {
         Pawn pawn = new Pawn(color, representation);
         board.add(pawn);
         return pawn;
     }
 
-    public void verifyBoard(Board board, Pawn pawn, int size, int idx) {
+    private void verifyBoard(Board board, Pawn pawn, int size, int idx) {
         assertThat(size).isEqualTo(board.size());
         assertThat(pawn).isEqualTo(board.findPawn(idx));
     }
