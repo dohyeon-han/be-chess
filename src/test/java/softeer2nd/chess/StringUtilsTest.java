@@ -11,6 +11,6 @@ class StringUtilsTest {
     @DisplayName("문자열을 줄바꿈한다.")
     public void appendNewLine() {
         String str = "test";
-        assertThat(StringUtils.appendNewLine(str)).isEqualTo("test\n");
+        assertThat(StringUtils.appendNewLine(str)).isEqualTo("test"+StringUtils.NEWLINE);
     }
 }
