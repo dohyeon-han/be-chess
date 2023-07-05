@@ -108,6 +108,10 @@ public class Piece {
         return Character.toUpperCase(this.type.getBlackRepresentation());
     }
 
+    public PieceUtils.Type getType() {
+        return this.type;
+    }
+
     public boolean isWhite() {
         return this.color.equals(PieceUtils.Color.WHITE);
     }
