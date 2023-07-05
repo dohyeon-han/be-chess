@@ -29,12 +29,11 @@ public class BoardTest {
     @Test
     @DisplayName("초기화한 체스판을 출력한다.")
     public void printInitialize() {
-        String init = "........\nPPPPPPPP\n........\n........\n........\n........\npppppppp\n........";
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
         board.print();
-        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(init);
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(getInitStatusString());
 
         System.setOut(new PrintStream(System.out));
     }
@@ -43,13 +42,16 @@ public class BoardTest {
     @DisplayName("체스판의 전체 상태를 확인한다.")
     public void create() {
         assertThat(32).isEqualTo(board.pieceCount());
-        String blankRank = appendNewLine("........");
-        assertThat(
-                appendNewLine("RNBQKBNR") +
-                        appendNewLine("PPPPPPPP") +
-                        blankRank + blankRank + blankRank + blankRank +
-                        appendNewLine("pppppppp") +
-                        appendNewLine("rnbqkbnr"))
+        assertThat(getInitStatusString())
                 .isEqualTo(board.showBoard());
+    }
+
+    private String getInitStatusString() {
+        String blankRank = appendNewLine("........");
+        return appendNewLine("RNBQKBNR") +
+                appendNewLine("PPPPPPPP") +
+                blankRank + blankRank + blankRank + blankRank +
+                appendNewLine("pppppppp") +
+                appendNewLine("rnbqkbnr");
     }
 }
