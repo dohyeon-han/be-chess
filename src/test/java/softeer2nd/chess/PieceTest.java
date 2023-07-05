@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PieceTest {
 
     @Test
-    @DisplayName("기물이 생성되어야 한다")
+    @DisplayName("기물을 생성한다")
     public void createPiece() {
         verifyPawn(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN), PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
         verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.PAWN), PieceUtils.Color.BLACK, PieceUtils.Type.PAWN);
