@@ -48,4 +48,15 @@ public class Board {
         }
         System.out.println(builder);
     }
+
+    public int pieceCount() {
+        int count = 0;
+        for(Piece[] row : board) {
+            for(Piece piece : row) {
+                if(piece == null) continue;
+                count++;
+            }
+        }
+        return count;
+    }
 }
