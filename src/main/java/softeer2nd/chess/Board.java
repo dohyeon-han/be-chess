@@ -5,14 +5,14 @@ import java.util.stream.Collectors;
 
 public class Board {
 
-    private final Pawn[][] board = new Pawn[8][8];
+    private final Piece[][] board = new Piece[8][8];
 
     public void initialize() {
         for (int i = 0; i < 8; i++) {
-            Pawn white = new Pawn();
+            Piece white = new Piece();
             board[6][i] = white;
 
-            Pawn black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
+            Piece black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION);
             board[1][i] = black;
         }
     }
@@ -25,9 +25,9 @@ public class Board {
         return getRepresentationResult(board[1]);
     }
 
-    private String getRepresentationResult(Pawn[] row) {
+    private String getRepresentationResult(Piece[] row) {
         return Arrays.stream(row)
-                .map(Pawn::getRepresentation)
+                .map(Piece::getRepresentation)
                 .map(String::valueOf)
                 .collect(Collectors.joining());
     }
