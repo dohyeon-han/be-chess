@@ -7,7 +7,8 @@ public class PieceUtils {
 
     public enum Type {
 
-        PAWN('p'), KNIGHT('n'), ROOK('r'), BISHOP('b'), QUEEN('q'), KING('k');
+        PAWN('p'), KNIGHT('n'), ROOK('r'), BISHOP('b'),
+        QUEEN('q'), KING('k'), NO_PIECE('x');
 
         private final char representation;
 
@@ -26,6 +27,6 @@ public class PieceUtils {
     }
 
     public enum Color {
-        WHITE, BLACK
+        WHITE, BLACK, NOCOLOR
     }
 }
