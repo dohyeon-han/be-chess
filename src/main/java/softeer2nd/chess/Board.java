@@ -10,19 +10,19 @@ public class Board {
     public void initialize() {
         for (int i = 0; i < 8; i++) {
             Pawn white = new Pawn();
-            board[1][i] = white;
+            board[6][i] = white;
 
             Pawn black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
-            board[6][i] = black;
+            board[1][i] = black;
         }
     }
 
     public String getWhitePawnsResult() {
-        return getRepresentationResult(board[1]);
+        return getRepresentationResult(board[6]);
     }
 
     public String getBlackPawnsResult() {
-        return getRepresentationResult(board[6]);
+        return getRepresentationResult(board[1]);
     }
 
     private String getRepresentationResult(Pawn[] row) {

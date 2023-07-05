@@ -28,7 +28,7 @@ public class BoardTest {
     @Test
     @DisplayName("초기화한 체스판을 출력한다.")
     public void printInitialize() {
-        String init = "........\npppppppp\n........\n........\n........\n........\nPPPPPPPP\n........";
+        String init = "........\nPPPPPPPP\n........\n........\n........\n........\npppppppp\n........";
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
