@@ -11,23 +11,23 @@ class PieceTest {
     @Test
     @DisplayName("기물을 생성한다")
     public void createPiece() {
-        verifyPawn(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN), PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
-        verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.PAWN), PieceUtils.Color.BLACK, PieceUtils.Type.PAWN);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN), PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.PAWN), PieceUtils.Color.BLACK, PieceUtils.Type.PAWN);
 
-        verifyPawn(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KNIGHT), PieceUtils.Color.WHITE, PieceUtils.Type.KNIGHT);
-        verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.KNIGHT), PieceUtils.Color.BLACK, PieceUtils.Type.KNIGHT);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KNIGHT), PieceUtils.Color.WHITE, PieceUtils.Type.KNIGHT);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.KNIGHT), PieceUtils.Color.BLACK, PieceUtils.Type.KNIGHT);
 
-        verifyPawn(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.ROOK), PieceUtils.Color.WHITE, PieceUtils.Type.ROOK);
-        verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.ROOK), PieceUtils.Color.BLACK, PieceUtils.Type.ROOK);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.ROOK), PieceUtils.Color.WHITE, PieceUtils.Type.ROOK);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.ROOK), PieceUtils.Color.BLACK, PieceUtils.Type.ROOK);
 
-        verifyPawn(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KING), PieceUtils.Color.WHITE, PieceUtils.Type.KING);
-        verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.KING), PieceUtils.Color.BLACK, PieceUtils.Type.KING);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KING), PieceUtils.Color.WHITE, PieceUtils.Type.KING);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.KING), PieceUtils.Color.BLACK, PieceUtils.Type.KING);
 
-        verifyPawn(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.BISHOP), PieceUtils.Color.WHITE, PieceUtils.Type.BISHOP);
-        verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.BISHOP), PieceUtils.Color.BLACK, PieceUtils.Type.BISHOP);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.BISHOP), PieceUtils.Color.WHITE, PieceUtils.Type.BISHOP);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.BISHOP), PieceUtils.Color.BLACK, PieceUtils.Type.BISHOP);
 
-        verifyPawn(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.QUEEN), PieceUtils.Color.WHITE, PieceUtils.Type.QUEEN);
-        verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.QUEEN), PieceUtils.Color.BLACK, PieceUtils.Type.QUEEN);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.QUEEN), PieceUtils.Color.WHITE, PieceUtils.Type.QUEEN);
+        verifyPiece(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.QUEEN), PieceUtils.Color.BLACK, PieceUtils.Type.QUEEN);
     }
 
     @Test
@@ -48,7 +48,7 @@ class PieceTest {
         assertThat(white.isWhite()).isTrue();
     }
 
-    private void verifyPawn(Piece piece, final PieceUtils.Color color, final PieceUtils.Type type){
+    private void verifyPiece(Piece piece, final PieceUtils.Color color, final PieceUtils.Type type){
         assertThat(piece.getColor()).isEqualTo(color);
         if(color.equals(PieceUtils.Color.WHITE)) {
             assertThat(piece.getRepresentation()).isEqualTo(type.getRepresentation());
