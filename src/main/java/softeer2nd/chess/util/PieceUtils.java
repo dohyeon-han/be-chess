@@ -4,7 +4,7 @@ public class PieceUtils {
 
     public enum Type {
 
-        PAWN('p'), KNIGHT('k'), ROOK('r'), BISHOP('b'), QUEEN('q'), KING('k');
+        PAWN('p'), KNIGHT('n'), ROOK('r'), BISHOP('b'), QUEEN('q'), KING('k');
 
         private final char representation;
 
