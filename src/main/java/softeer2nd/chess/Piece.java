@@ -42,7 +42,11 @@ public class Piece {
                 return createBlackQueen();
             }
         }
-        throw new IllegalArgumentException("적절하지 않은 인자입니다.");
+        return createBlank();
+    }
+
+    public static Piece createBlank() {
+        return new Piece(PieceUtils.Color.NOCOLOR, PieceUtils.Type.NO_PIECE);
     }
 
     public static Piece createWhitePawn() {
