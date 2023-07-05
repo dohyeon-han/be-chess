@@ -21,11 +21,11 @@ public class Piece {
         return createBlank();
     }
 
-    public static Piece createWhite(PieceUtils.Type type){
+    private static Piece createWhite(PieceUtils.Type type){
         return new Piece(PieceUtils.Color.WHITE, type);
     }
 
-    public static Piece createBlack(PieceUtils.Type type){
+    private static Piece createBlack(PieceUtils.Type type){
         return new Piece(PieceUtils.Color.BLACK, type);
     }
 
