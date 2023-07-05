@@ -99,9 +99,9 @@ public class Piece {
 
     public char getRepresentation() {
         if (this.color.equals(PieceUtils.Color.WHITE)) {
-            return this.type.getRepresentation();
+            return this.type.getWhiteRepresentation();
         }
-        return Character.toUpperCase(this.type.getRepresentation());
+        return Character.toUpperCase(this.type.getBlackRepresentation());
     }
 
     public boolean isWhite() {

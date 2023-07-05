@@ -16,8 +16,12 @@ public class PieceUtils {
             this.representation = representation;
         }
 
-        public char getRepresentation() {
-            return representation;
+        public char getWhiteRepresentation() {
+            return this.representation;
+        }
+
+        public char getBlackRepresentation() {
+            return Character.toUpperCase(this.representation);
         }
     }
 
