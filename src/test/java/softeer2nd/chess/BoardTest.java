@@ -33,7 +33,7 @@ public class BoardTest {
         System.setOut(new PrintStream(outputStreamCaptor));
 
         board.print();
-        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(getInitStatusString());
+        assertThat(outputStreamCaptor.toString()).isEqualTo(getInitStatusString());
 
         System.setOut(new PrintStream(System.out));
     }
