@@ -7,7 +7,7 @@ public class Piece {
     private final PieceUtils.Color color;
     private final PieceUtils.Type type;
 
-    public Piece(PieceUtils.Color color, PieceUtils.Type type) {
+    private Piece(PieceUtils.Color color, PieceUtils.Type type) {
         this.color = color;
         this.type = type;
     }
@@ -15,17 +15,17 @@ public class Piece {
     public static Piece createPiece(PieceUtils.Color color, PieceUtils.Type type) {
         if (color.equals(PieceUtils.Color.WHITE)) {
             return createWhite(type);
-        } else if(color.equals(PieceUtils.Color.BLACK)){
+        } else if (color.equals(PieceUtils.Color.BLACK)) {
             return createBlack(type);
         }
         return createBlank();
     }
 
-    private static Piece createWhite(PieceUtils.Type type){
+    private static Piece createWhite(PieceUtils.Type type) {
         return new Piece(PieceUtils.Color.WHITE, type);
     }
 
-    private static Piece createBlack(PieceUtils.Type type){
+    private static Piece createBlack(PieceUtils.Type type) {
         return new Piece(PieceUtils.Color.BLACK, type);
     }
 

@@ -20,21 +20,21 @@ public class Board {
         int otherRow = color.equals(PieceUtils.Color.BLACK) ? 0 : 7;
 
         for (int i = 0; i < 8; i++) {
-            board[pawnRow][i] = new Piece(color, PieceUtils.Type.PAWN);
+            board[pawnRow][i] = Piece.createPiece(color, PieceUtils.Type.PAWN);
         }
 
-        board[otherRow][0] = new Piece(color, PieceUtils.Type.ROOK);
-        board[otherRow][7] = new Piece(color, PieceUtils.Type.ROOK);
+        board[otherRow][0] = Piece.createPiece(color, PieceUtils.Type.ROOK);
+        board[otherRow][7] = Piece.createPiece(color, PieceUtils.Type.ROOK);
 
-        board[otherRow][1] = new Piece(color, PieceUtils.Type.KNIGHT);
-        board[otherRow][6] = new Piece(color, PieceUtils.Type.KNIGHT);
+        board[otherRow][1] = Piece.createPiece(color, PieceUtils.Type.KNIGHT);
+        board[otherRow][6] = Piece.createPiece(color, PieceUtils.Type.KNIGHT);
 
-        board[otherRow][2] = new Piece(color, PieceUtils.Type.BISHOP);
-        board[otherRow][5] = new Piece(color, PieceUtils.Type.BISHOP);
+        board[otherRow][2] = Piece.createPiece(color, PieceUtils.Type.BISHOP);
+        board[otherRow][5] = Piece.createPiece(color, PieceUtils.Type.BISHOP);
 
-        board[otherRow][3] = new Piece(color, PieceUtils.Type.QUEEN);
+        board[otherRow][3] = Piece.createPiece(color, PieceUtils.Type.QUEEN);
 
-        board[otherRow][4] = new Piece(color, PieceUtils.Type.KING);
+        board[otherRow][4] = Piece.createPiece(color, PieceUtils.Type.KING);
     }
 
     public String getWhitePawnsResult() {

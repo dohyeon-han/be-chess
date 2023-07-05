@@ -33,7 +33,7 @@ class PieceTest {
     @Test
     @DisplayName("Piece의 색이 검정색인지 확인한다.")
     public void isBlack() {
-        Piece black = new Piece(Color.BLACK, Type.KING);
+        Piece black = Piece.createPiece(Color.BLACK, Type.KING);
 
         assertThat(black.isBlack()).isTrue();
         assertThat(black.isWhite()).isFalse();
@@ -42,7 +42,7 @@ class PieceTest {
     @Test
     @DisplayName("Piece의 색이 하얀색인지 확인한다.")
     public void isWhite() {
-        Piece white = new Piece(Color.WHITE, Type.KING);
+        Piece white = Piece.createPiece(Color.WHITE, Type.KING);
 
         assertThat(white.isBlack()).isFalse();
         assertThat(white.isWhite()).isTrue();
