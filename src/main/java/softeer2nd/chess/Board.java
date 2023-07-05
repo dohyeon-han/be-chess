@@ -11,10 +11,10 @@ public class Board {
 
     public void initialize() {
         for (int i = 0; i < 8; i++) {
-            Piece white = new Piece(PieceUtils.Color.WHITE, Piece.WHITE_PAWN_REPRESENTATION);
+            Piece white = new Piece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
             board[6][i] = white;
 
-            Piece black = new Piece(PieceUtils.Color.BLACK, Piece.BLACK_PAWN_REPRESENTATION);
+            Piece black = new Piece(PieceUtils.Color.BLACK, PieceUtils.Type.PAWN);
             board[1][i] = black;
         }
     }

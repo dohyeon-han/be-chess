@@ -3,23 +3,21 @@ package softeer2nd.chess;
 import softeer2nd.chess.util.PieceUtils;
 
 public class Piece {
-    public static final char WHITE_PAWN_REPRESENTATION = 'p';
-    public static final char BLACK_PAWN_REPRESENTATION = 'P';
 
     private final PieceUtils.Color color;
-    private final char representation;
+    private final PieceUtils.Type type;
 
-    public Piece(PieceUtils.Color color, char representation) {
+    public Piece(PieceUtils.Color color, PieceUtils.Type type) {
         this.color = color;
-        this.representation = representation;
+        this.type = type;
     }
 
     public static Piece createWhitePawn() {
-        return new Piece(PieceUtils.Color.WHITE, WHITE_PAWN_REPRESENTATION);
+        return new Piece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
     }
 
     public static Piece createBlackPawn() {
-        return new Piece(PieceUtils.Color.BLACK, BLACK_PAWN_REPRESENTATION);
+        return new Piece(PieceUtils.Color.BLACK, PieceUtils.Type.PAWN);
     }
 
     public PieceUtils.Color getColor() {
@@ -27,6 +25,9 @@ public class Piece {
     }
 
     public char getRepresentation() {
-        return this.representation;
+        if(this.color.equals(PieceUtils.Color.WHITE)){
+            return this.type.getRepresentation();
+        }
+        return Character.toUpperCase(this.type.getRepresentation());
     }
 }
