@@ -19,7 +19,7 @@ public class Main {
             } else if (input.equals("end")) {
                 System.out.println("체스를 종료합니다.");
                 break;
-            } else if(playing) {
+            } else if (playing) {
                 board.print();
             }
         }

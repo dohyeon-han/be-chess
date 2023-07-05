@@ -13,32 +13,32 @@ public class Piece {
     }
 
     public static Piece createPiece(PieceUtils.Color color, PieceUtils.Type type) {
-        if(color.equals(PieceUtils.Color.WHITE)){
-            if(type.equals(PieceUtils.Type.PAWN)){
+        if (color.equals(PieceUtils.Color.WHITE)) {
+            if (type.equals(PieceUtils.Type.PAWN)) {
                 return createWhitePawn();
-            } else if(type.equals(PieceUtils.Type.KNIGHT)){
+            } else if (type.equals(PieceUtils.Type.KNIGHT)) {
                 return createWhiteKnight();
-            } else if(type.equals(PieceUtils.Type.ROOK)) {
+            } else if (type.equals(PieceUtils.Type.ROOK)) {
                 return createWhiteRook();
-            } else if(type.equals(PieceUtils.Type.BISHOP)) {
+            } else if (type.equals(PieceUtils.Type.BISHOP)) {
                 return createWhiteBishop();
-            } else if(type.equals(PieceUtils.Type.KING)) {
+            } else if (type.equals(PieceUtils.Type.KING)) {
                 return createWhiteKing();
-            } else if(type.equals(PieceUtils.Type.QUEEN)) {
+            } else if (type.equals(PieceUtils.Type.QUEEN)) {
                 return createWhiteQueen();
             }
         } else {
-            if(type.equals(PieceUtils.Type.PAWN)){
+            if (type.equals(PieceUtils.Type.PAWN)) {
                 return createBlackPawn();
-            } else if(type.equals(PieceUtils.Type.KNIGHT)){
+            } else if (type.equals(PieceUtils.Type.KNIGHT)) {
                 return createBlackKnight();
-            } else if(type.equals(PieceUtils.Type.ROOK)) {
+            } else if (type.equals(PieceUtils.Type.ROOK)) {
                 return createBlackRook();
-            } else if(type.equals(PieceUtils.Type.BISHOP)) {
+            } else if (type.equals(PieceUtils.Type.BISHOP)) {
                 return createBlackBishop();
-            } else if(type.equals(PieceUtils.Type.KING)) {
+            } else if (type.equals(PieceUtils.Type.KING)) {
                 return createBlackKing();
-            } else if(type.equals(PieceUtils.Type.QUEEN)) {
+            } else if (type.equals(PieceUtils.Type.QUEEN)) {
                 return createBlackQueen();
             }
         }
@@ -98,7 +98,7 @@ public class Piece {
     }
 
     public char getRepresentation() {
-        if(this.color.equals(PieceUtils.Color.WHITE)){
+        if (this.color.equals(PieceUtils.Color.WHITE)) {
             return this.type.getRepresentation();
         }
         return Character.toUpperCase(this.type.getRepresentation());
