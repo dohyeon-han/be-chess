@@ -10,13 +10,30 @@ public class Board {
     private final Piece[][] board = new Piece[8][8];
 
     public void initialize() {
-        for (int i = 0; i < 8; i++) {
-            Piece white = new Piece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
-            board[6][i] = white;
+        initializeByColor(PieceUtils.Color.WHITE);
+        initializeByColor(PieceUtils.Color.BLACK);
+    }
 
-            Piece black = new Piece(PieceUtils.Color.BLACK, PieceUtils.Type.PAWN);
-            board[1][i] = black;
+    private void initializeByColor(PieceUtils.Color color) {
+        int pawnRow = color.equals(PieceUtils.Color.BLACK) ? 1 : 6;
+        int otherRow = color.equals(PieceUtils.Color.BLACK) ? 0 : 7;
+
+        for (int i = 0; i < 8; i++) {
+            board[pawnRow][i] = new Piece(color, PieceUtils.Type.PAWN);
         }
+
+        board[otherRow][0] = new Piece(color, PieceUtils.Type.ROOK);
+        board[otherRow][7] = new Piece(color, PieceUtils.Type.ROOK);
+
+        board[otherRow][1] = new Piece(color, PieceUtils.Type.KNIGHT);
+        board[otherRow][6] = new Piece(color, PieceUtils.Type.KNIGHT);
+
+        board[otherRow][2] = new Piece(color, PieceUtils.Type.BISHOP);
+        board[otherRow][5] = new Piece(color, PieceUtils.Type.BISHOP);
+
+        board[otherRow][3] = new Piece(color, PieceUtils.Type.QUEEN);
+
+        board[otherRow][4] = new Piece(color, PieceUtils.Type.KING);
     }
 
     public String getWhitePawnsResult() {
@@ -35,6 +52,21 @@ public class Board {
     }
 
     public void print() {
+        System.out.print(showBoard());
+    }
+
+    public int pieceCount() {
+        int count = 0;
+        for (Piece[] row : board) {
+            for (Piece piece : row) {
+                if (piece == null) continue;
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public String showBoard() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -46,17 +78,6 @@ public class Board {
             }
             builder.append('\n');
         }
-        System.out.println(builder);
-    }
-
-    public int pieceCount() {
-        int count = 0;
-        for(Piece[] row : board) {
-            for(Piece piece : row) {
-                if(piece == null) continue;
-                count++;
-            }
-        }
-        return count;
+        return builder.toString();
     }
 }
