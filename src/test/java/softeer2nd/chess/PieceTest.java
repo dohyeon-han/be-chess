@@ -61,12 +61,12 @@ class PieceTest {
     @Test
     @DisplayName("색이 다른 같은 종류의 Piece 비교")
     public void create_piece() {
-        verifyPiece(Piece.createWhitePawn(), Piece.createBlackPawn(), PieceUtils.Type.PAWN);
-        verifyPiece(Piece.createWhiteKnight(), Piece.createBlackKnight(), PieceUtils.Type.KNIGHT);
-        verifyPiece(Piece.createWhiteRook(), Piece.createBlackRook(), PieceUtils.Type.ROOK);
-        verifyPiece(Piece.createWhiteBishop(), Piece.createBlackBishop(), PieceUtils.Type.BISHOP);
-        verifyPiece(Piece.createWhiteQueen(), Piece.createBlackQueen(), PieceUtils.Type.QUEEN);
-        verifyPiece(Piece.createWhiteKing(), Piece.createBlackKing(), PieceUtils.Type.KING);
+        verifyPiece(Piece.createWhite(PieceUtils.Type.PAWN), Piece.createBlack(PieceUtils.Type.PAWN), PieceUtils.Type.PAWN);
+        verifyPiece(Piece.createWhite(PieceUtils.Type.KNIGHT), Piece.createBlack(PieceUtils.Type.KNIGHT), PieceUtils.Type.KNIGHT);
+        verifyPiece(Piece.createWhite(PieceUtils.Type.ROOK), Piece.createBlack(PieceUtils.Type.ROOK), PieceUtils.Type.ROOK);
+        verifyPiece(Piece.createWhite(PieceUtils.Type.BISHOP), Piece.createBlack(PieceUtils.Type.BISHOP), PieceUtils.Type.BISHOP);
+        verifyPiece(Piece.createWhite(PieceUtils.Type.QUEEN), Piece.createBlack(PieceUtils.Type.QUEEN), PieceUtils.Type.QUEEN);
+        verifyPiece(Piece.createWhite(PieceUtils.Type.KING), Piece.createBlack(PieceUtils.Type.KING), PieceUtils.Type.KING);
 
         Piece blank = Piece.createBlank();
         assertThat(blank.isWhite()).isFalse();
