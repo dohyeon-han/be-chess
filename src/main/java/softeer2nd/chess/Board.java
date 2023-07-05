@@ -1,6 +1,7 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.util.PieceUtils;
+import softeer2nd.chess.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -76,7 +77,7 @@ public class Board {
                     builder.append(board[i][j].getRepresentation());
                 }
             }
-            builder.append('\n');
+            builder.append(StringUtils.NEWLINE);
         }
         return builder.toString();
     }
