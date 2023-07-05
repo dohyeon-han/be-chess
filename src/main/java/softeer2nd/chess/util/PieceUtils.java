@@ -2,6 +2,9 @@ package softeer2nd.chess.util;
 
 public class PieceUtils {
 
+    private PieceUtils() {
+    }
+
     public enum Type {
 
         PAWN('p'), KNIGHT('n'), ROOK('r'), BISHOP('b'), QUEEN('q'), KING('k');
