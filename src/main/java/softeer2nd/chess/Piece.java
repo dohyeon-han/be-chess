@@ -103,4 +103,12 @@ public class Piece {
         }
         return Character.toUpperCase(this.type.getRepresentation());
     }
+
+    public boolean isWhite() {
+        return this.color.equals(PieceUtils.Color.WHITE);
+    }
+
+    public boolean isBlack() {
+        return this.color.equals(PieceUtils.Color.BLACK);
+    }
 }
