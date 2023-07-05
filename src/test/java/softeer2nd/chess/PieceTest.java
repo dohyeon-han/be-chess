@@ -30,6 +30,24 @@ class PieceTest {
         verifyPawn(Piece.createPiece(PieceUtils.Color.BLACK, PieceUtils.Type.QUEEN), PieceUtils.Color.BLACK, PieceUtils.Type.QUEEN);
     }
 
+    @Test
+    @DisplayName("Piece의 색이 검정색인지 확인한다.")
+    public void isBlack() {
+        Piece black = new Piece(PieceUtils.Color.BLACK, PieceUtils.Type.KING);
+
+        assertThat(black.isBlack()).isTrue();
+        assertThat(black.isWhite()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Piece의 색이 하얀색인지 확인한다.")
+    public void isWhite() {
+        Piece white = new Piece(PieceUtils.Color.WHITE, PieceUtils.Type.KING);
+
+        assertThat(white.isBlack()).isFalse();
+        assertThat(white.isWhite()).isTrue();
+    }
+
     private void verifyPawn(Piece piece, final PieceUtils.Color color, final PieceUtils.Type type){
         assertThat(piece.getColor()).isEqualTo(color);
         if(color.equals(PieceUtils.Color.WHITE)) {
