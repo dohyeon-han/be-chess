@@ -3,6 +3,7 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.util.PieceUtils;
+import softeer2nd.chess.util.StringUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,5 +57,29 @@ class PieceTest {
         else {
             assertThat(piece.getRepresentation()).isEqualTo(Character.toUpperCase(type.getBlackRepresentation()));
         }
+    }
+
+    @Test
+    @DisplayName("색이 다른 같은 종류의 Piece 비교")
+    public void create_piece() {
+        verifyPiece(Piece.createWhitePawn(), Piece.createBlackPawn(), PieceUtils.Type.PAWN);
+        verifyPiece(Piece.createWhiteKnight(), Piece.createBlackKnight(), PieceUtils.Type.KNIGHT);
+        verifyPiece(Piece.createWhiteRook(), Piece.createBlackRook(), PieceUtils.Type.ROOK);
+        verifyPiece(Piece.createWhiteBishop(), Piece.createBlackBishop(), PieceUtils.Type.BISHOP);
+        verifyPiece(Piece.createWhiteQueen(), Piece.createBlackQueen(), PieceUtils.Type.QUEEN);
+        verifyPiece(Piece.createWhiteKing(), Piece.createBlackKing(), PieceUtils.Type.KING);
+
+        Piece blank = Piece.createBlank();
+        assertThat(blank.isWhite()).isFalse();
+        assertThat(blank.isBlack()).isFalse();
+        assertThat(blank.getType()).isEqualTo(PieceUtils.Type.NO_PIECE);
+    }
+
+    private void verifyPiece(final Piece whitePiece, final Piece blackPiece, final PieceUtils.Type type) {
+        assertThat(whitePiece.isWhite()).isTrue();
+        assertThat(whitePiece.getType()).isEqualTo(type);
+
+        assertThat(blackPiece.isBlack()).isTrue();
+        assertThat(blackPiece.getType()).isEqualTo(type);
     }
 }
