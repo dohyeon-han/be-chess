@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.util;
 
 public class StringUtils {
     public static final String NEWLINE = System.getProperty("line.separator");
