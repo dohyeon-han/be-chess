@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static softeer2nd.chess.util.StringUtils.appendNewLine;
 
 public class BoardTest {
     Board board;
@@ -36,5 +37,19 @@ public class BoardTest {
         assertThat(outputStreamCaptor.toString().trim()).isEqualTo(init);
 
         System.setOut(new PrintStream(System.out));
+    }
+
+    @Test
+    @DisplayName("체스판의 전체 상태를 확인한다.")
+    public void create() throws Exception {
+        assertThat(32, board.pieceCount());
+        String blankRank = appendNewLine("........");
+        assertThat(
+                appendNewLine("RNBQKBNR") +
+                        appendNewLine("PPPPPPPP") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("pppppppp") +
+                        appendNewLine("rnbqkbnr"))
+                .isEqualTo(board.showBoard());
     }
 }
