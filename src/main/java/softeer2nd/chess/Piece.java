@@ -27,7 +27,7 @@ public class Piece {
             } else if (type.equals(PieceUtils.Type.QUEEN)) {
                 return createWhiteQueen();
             }
-        } else {
+        } else if(color.equals(PieceUtils.Color.BLACK)){
             if (type.equals(PieceUtils.Type.PAWN)) {
                 return createBlackPawn();
             } else if (type.equals(PieceUtils.Type.KNIGHT)) {
