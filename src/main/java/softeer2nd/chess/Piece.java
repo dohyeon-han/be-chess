@@ -9,10 +9,6 @@ public class Piece {
     private final String color;
     private final char representation;
 
-    public Piece() {
-        this(WHITE_COLOR, WHITE_REPRESENTATION);
-    }
-
     public Piece(String color, char representation) {
         this.color = color;
         this.representation = representation;

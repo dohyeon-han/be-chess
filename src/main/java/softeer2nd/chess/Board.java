@@ -9,7 +9,7 @@ public class Board {
 
     public void initialize() {
         for (int i = 0; i < 8; i++) {
-            Piece white = new Piece();
+            Piece white = new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION);
             board[6][i] = white;
 
             Piece black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION);
