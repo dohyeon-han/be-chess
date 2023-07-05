@@ -1,20 +1,28 @@
 package softeer2nd.chess;
 
-public class Piece {
-    public static final String WHITE_COLOR = "white";
-    public static final String BLACK_COLOR = "black";
-    public static final char WHITE_REPRESENTATION = 'p';
-    public static final char BLACK_REPRESENTATION = 'P';
+import softeer2nd.chess.util.PieceUtils;
 
-    private final String color;
+public class Piece {
+    public static final char WHITE_PAWN_REPRESENTATION = 'p';
+    public static final char BLACK_PAWN_REPRESENTATION = 'P';
+
+    private final PieceUtils.Color color;
     private final char representation;
 
-    public Piece(String color, char representation) {
+    public Piece(PieceUtils.Color color, char representation) {
         this.color = color;
         this.representation = representation;
     }
 
-    public String getColor() {
+    public static Piece createWhitePawn() {
+        return new Piece(PieceUtils.Color.WHITE, WHITE_PAWN_REPRESENTATION);
+    }
+
+    public static Piece createBlackPawn() {
+        return new Piece(PieceUtils.Color.BLACK, BLACK_PAWN_REPRESENTATION);
+    }
+
+    public PieceUtils.Color getColor() {
         return this.color;
     }
 

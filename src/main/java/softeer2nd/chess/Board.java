@@ -1,5 +1,7 @@
 package softeer2nd.chess;
 
+import softeer2nd.chess.util.PieceUtils;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -9,10 +11,10 @@ public class Board {
 
     public void initialize() {
         for (int i = 0; i < 8; i++) {
-            Piece white = new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION);
+            Piece white = new Piece(PieceUtils.Color.WHITE, Piece.WHITE_PAWN_REPRESENTATION);
             board[6][i] = white;
 
-            Piece black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION);
+            Piece black = new Piece(PieceUtils.Color.BLACK, Piece.BLACK_PAWN_REPRESENTATION);
             board[1][i] = black;
         }
     }
