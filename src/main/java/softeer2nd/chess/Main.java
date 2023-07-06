@@ -1,9 +1,5 @@
 package softeer2nd.chess;
 
-import softeer2nd.chess.board.Board;
-import softeer2nd.chess.board.BoardController;
-import softeer2nd.chess.board.BoardService;
-
 import java.util.Scanner;
 
 public class Main {

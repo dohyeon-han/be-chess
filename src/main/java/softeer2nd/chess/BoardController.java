@@ -1,11 +1,10 @@
-package softeer2nd.chess.board;
+package softeer2nd.chess;
 
-import softeer2nd.chess.Position;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils;
 import softeer2nd.chess.util.StringUtils;
 
-import static softeer2nd.chess.board.Board.BOARD_LENGTH;
+import static softeer2nd.chess.Board.BOARD_LENGTH;
 
 public class BoardController {
 
