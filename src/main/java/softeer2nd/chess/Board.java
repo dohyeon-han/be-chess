@@ -112,9 +112,10 @@ public class Board {
             long countPawn = pieces.stream().filter(piece -> piece.getType().equals(PieceUtils.Type.PAWN)).count();
 
             // 해당 열에 pawn이 2개 이상 있으면, pawn을 더할 때 반으로 값을 더한다.
-            for (Piece piece : pieces) {
-                sum += piece.getType().getDefaultPoint() / (countPawn > 1 && piece.getType().equals(PieceUtils.Type.PAWN) ? 2.0 : 1.0);
-            }
+            sum += pieces.stream()
+                    .mapToDouble(piece -> piece.getType().getDefaultPoint() /
+                            (countPawn > 1 && piece.getType().equals(PieceUtils.Type.PAWN) ? 2.0 : 1.0))
+                    .sum();
         }
         return sum;
     }
