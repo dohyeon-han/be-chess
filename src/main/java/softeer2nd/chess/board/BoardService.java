@@ -6,6 +6,7 @@ import softeer2nd.chess.util.PieceUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static softeer2nd.chess.board.Board.BOARD_LENGTH;
 
@@ -18,18 +19,13 @@ public class BoardService {
     }
 
     public long countPiece() {
-        return this.board.getBoard().stream()
-                .map(Rank::getRank)
-                .flatMap(List::stream)
+        return getFlatMap(this.board)
                 .filter(piece -> !piece.getType().equals(PieceUtils.Type.NO_PIECE))
                 .count();
-
     }
 
     public long countPiece(PieceUtils.Color color, PieceUtils.Type type) {
-        return board.getBoard().stream()
-                .map(Rank::getRank)
-                .flatMap(List::stream)
+        return getFlatMap(this.board)
                 .filter(piece -> piece.getColor().equals(color) && piece.getType().equals(type))
                 .count();
     }
@@ -67,6 +63,11 @@ public class BoardService {
         return getPiecePointsDesc(color).stream().sorted().collect(Collectors.toList());
     }
 
+    private Stream<Piece> getFlatMap(Board board) {
+        return board.getBoard().stream()
+                .map(Rank::getRank)
+                .flatMap(List::stream);
+    }
     private String getRepresentationResult(Rank rank) {
         return rank.getRank().stream().map(Piece::getRepresentation)
                 .map(String::valueOf)
