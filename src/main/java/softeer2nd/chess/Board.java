@@ -74,6 +74,14 @@ public class Board {
 
     }
 
+    public long countPiece(PieceUtils.Color color, PieceUtils.Type type) {
+        return board.stream()
+                .map(Rank::getRank)
+                .flatMap(List::stream)
+                .filter(piece -> piece.getColor().equals(color) && piece.getType().equals(type))
+                .count();
+    }
+
     public String showBoard() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 8; i++) {
@@ -87,14 +95,6 @@ public class Board {
             builder.append(StringUtils.NEWLINE);
         }
         return builder.toString();
-    }
-
-    public long countPiece(PieceUtils.Color color, PieceUtils.Type type) {
-        return board.stream()
-                .map(Rank::getRank)
-                .flatMap(List::stream)
-                .filter(piece -> piece.getColor().equals(color) && piece.getType().equals(type))
-                .count();
     }
 
     public void move(String pos, Piece piece) {
