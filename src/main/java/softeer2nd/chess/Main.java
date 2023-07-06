@@ -9,8 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Board board = new Board();
-        BoardService boardService = new BoardService(board);
-        BoardController boardController = new BoardController(board, boardService);
+        BoardController boardController = new BoardController(board, new BoardService(board));
         boolean playing = false;
 
         Scanner sc = new Scanner(System.in);
@@ -20,7 +19,7 @@ public class Main {
             if (input.equals("start")) {
                 playing = true;
                 System.out.println("체스를 시작합니다.");
-                board.initialize();
+                boardController.initializeBoard();
                 boardController.print();
             } else if (input.equals("end")) {
                 System.out.println("체스를 종료합니다.");

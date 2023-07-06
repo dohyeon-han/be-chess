@@ -20,6 +20,10 @@ public class BoardController {
         System.out.print(showBoard());
     }
 
+    public void initializeBoard() {
+        board.initialize();
+    }
+
     public String showBoard() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 8; i++) {
