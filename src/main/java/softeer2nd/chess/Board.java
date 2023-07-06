@@ -77,4 +77,12 @@ public class Board {
         }
         return builder.toString();
     }
+
+    public long countPiece(PieceUtils.Color color, PieceUtils.Type type){
+        return board.stream()
+                .map(Rank::getRank)
+                .flatMap(List::stream)
+                .filter(piece -> piece.getColor().equals(color) && piece.getType().equals(type))
+                .count();
+    }
 }
