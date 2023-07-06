@@ -8,6 +8,7 @@ import java.util.List;
 
 import static softeer2nd.chess.board.Board.BOARD_LENGTH;
 
+
 public class Rank {
 
     private final List<Piece> rank = new ArrayList<>(BOARD_LENGTH);

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.board.BoardController;
+import softeer2nd.chess.board.BoardService;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils.Color;
 import softeer2nd.chess.util.PieceUtils.Type;
@@ -20,19 +22,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static softeer2nd.chess.util.StringUtils.appendNewLine;
 
 public class BoardTest {
+
     Board board;
+    BoardService boardService;
+    BoardController boardController;
 
     @BeforeEach
     public void setUp() {
         board = new Board();
+        boardService = new BoardService(board);
+        boardController = new BoardController(board, boardService);
         board.initialize();
     }
 
     @Test
     @DisplayName("폰을 출력한다.")
     public void initialize() {
-        assertThat(board.getWhitePawnsResult()).isEqualTo("pppppppp");
-        assertThat(board.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
+        assertThat(boardService.getWhitePawnsResult()).isEqualTo("pppppppp");
+        assertThat(boardService.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
     }
 
     @Test
@@ -44,7 +51,7 @@ public class BoardTest {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
-        board.print();
+        boardController.print();
         assertThat(outputStreamCaptor.toString()).isEqualTo(getInitStatusString());
 
         // System.out을 이전의 PrintStream으로 복원
@@ -54,9 +61,9 @@ public class BoardTest {
     @Test
     @DisplayName("체스판의 전체 상태를 확인한다.")
     public void create() {
-        assertThat(32).isEqualTo(board.countPiece());
+        assertThat(32).isEqualTo(boardService.countPiece());
         assertThat(getInitStatusString())
-                .isEqualTo(board.showBoard());
+                .isEqualTo(boardController.showBoard());
     }
 
     @Test
@@ -82,12 +89,10 @@ public class BoardTest {
     @Test
     @DisplayName("모든 룩의 위치를 확인한다.")
     public void findRook() {
-        board.initialize();
-
-        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("a8"));
-        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("h8"));
-        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("a1"));
-        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("h1"));
+        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("a8"));
+        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("h8"));
+        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("a1"));
+        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("h1"));
     }
 
     @Test
@@ -99,8 +104,8 @@ public class BoardTest {
 
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> board.findPiece(shortPos));
-        assertThrows(IllegalArgumentException.class, () -> board.findPiece(longPos));
+        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(shortPos));
+        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(longPos));
     }
 
     @Test
@@ -111,7 +116,7 @@ public class BoardTest {
 
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> board.findPiece(pos));
+        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(pos));
     }
 
     @Test
@@ -122,7 +127,7 @@ public class BoardTest {
 
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> board.findPiece(pos));
+        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(pos));
     }
 
     @Test
@@ -133,11 +138,11 @@ public class BoardTest {
         String targetPosition = "b3";
 
         //when
-        board.move(sourcePosition, targetPosition);
+        boardController.move(sourcePosition, targetPosition);
 
         //then
-        assertThat(board.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
-        assertThat(board.findPiece(targetPosition)).isEqualToComparingFieldByFieldRecursively(Piece.createPiece(Color.WHITE, Type.PAWN));
+        assertThat(boardService.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
+        assertThat(boardService.findPiece(targetPosition)).isEqualToComparingFieldByFieldRecursively(Piece.createPiece(Color.WHITE, Type.PAWN));
     }
 
     @Test
@@ -147,10 +152,10 @@ public class BoardTest {
         addPieces();
 
         //then
-        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
-        assertEquals(7.5, board.calculatePoint(Color.WHITE), 0.01);
+        assertEquals(15.0, boardService.calculatePoint(Color.BLACK), 0.01);
+        assertEquals(7.5, boardService.calculatePoint(Color.WHITE), 0.01);
 
-        System.out.println(board.showBoard());
+        System.out.println(boardController.showBoard());
     }
 
     @Test
@@ -160,8 +165,8 @@ public class BoardTest {
         addPieces();
 
         //when
-        List<Double> whitePoints = board.getPiecePointsAsc(Color.WHITE);
-        List<Double> blackPoints = board.getPiecePointsAsc(Color.BLACK);
+        List<Double> whitePoints = boardService.getPiecePointsAsc(Color.WHITE);
+        List<Double> blackPoints = boardService.getPiecePointsAsc(Color.BLACK);
 
         //then
         List<Double> expectedWhitePoints = Arrays.asList(0.0, 2.5, 5.0);
@@ -177,8 +182,8 @@ public class BoardTest {
         addPieces();
 
         //when
-        List<Double> whitePoints = board.getPiecePointsDesc(Color.WHITE);
-        List<Double> blackPoints = board.getPiecePointsDesc(Color.BLACK);
+        List<Double> whitePoints = boardService.getPiecePointsDesc(Color.WHITE);
+        List<Double> blackPoints = boardService.getPiecePointsDesc(Color.BLACK);
 
         //then
         List<Double> expectedWhitePoints = Arrays.asList(5.0, 2.5, 0.0);
@@ -192,11 +197,11 @@ public class BoardTest {
     public void moveBlank() {
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> board.move("a4", "a5"));
+        assertThrows(IllegalArgumentException.class, () -> boardController.move("a4", "a5"));
     }
 
     private void addPiece(String position, Piece piece) {
-        board.move(position, piece);
+        boardController.move(position, piece);
     }
 
     private String getInitStatusString() {
@@ -228,12 +233,12 @@ public class BoardTest {
 
     private List<Long> getCountList(Color color) {
         List<Long> counts = new ArrayList<>();
-        counts.add(board.countPiece(color, Type.PAWN));
-        counts.add(board.countPiece(color, Type.ROOK));
-        counts.add(board.countPiece(color, Type.KNIGHT));
-        counts.add(board.countPiece(color, Type.BISHOP));
-        counts.add(board.countPiece(color, Type.KING));
-        counts.add(board.countPiece(color, Type.QUEEN));
+        counts.add(boardService.countPiece(color, Type.PAWN));
+        counts.add(boardService.countPiece(color, Type.ROOK));
+        counts.add(boardService.countPiece(color, Type.KNIGHT));
+        counts.add(boardService.countPiece(color, Type.BISHOP));
+        counts.add(boardService.countPiece(color, Type.KING));
+        counts.add(boardService.countPiece(color, Type.QUEEN));
 
         return counts;
     }

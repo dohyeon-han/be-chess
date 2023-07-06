@@ -1,12 +1,16 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.board.BoardController;
+import softeer2nd.chess.board.BoardService;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Board board = new Board();
+        BoardService boardService = new BoardService(board);
+        BoardController boardController = new BoardController(board, boardService);
         boolean playing = false;
 
         Scanner sc = new Scanner(System.in);
@@ -17,23 +21,23 @@ public class Main {
                 playing = true;
                 System.out.println("체스를 시작합니다.");
                 board.initialize();
-                board.print();
+                boardController.print();
             } else if (input.equals("end")) {
                 System.out.println("체스를 종료합니다.");
                 break;
             } else if (playing) {
                 String[] tokens = input.split(" ");
-                command(board, tokens);
-                board.print();
+                command(boardController, tokens);
+                boardController.print();
             }
         }
     }
 
-    private static void command(Board board, String[] tokens) {
+    private static void command(BoardController boardController, String[] tokens) {
         try {
             if (tokens.length == 3) {
                 if (tokens[0].equals("move")) {
-                    board.move(tokens[1], tokens[2]);
+                    boardController.move(tokens[1], tokens[2]);
                 }
             }
         } catch (Exception e) {
