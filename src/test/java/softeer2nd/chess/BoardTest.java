@@ -21,13 +21,11 @@ import static softeer2nd.chess.util.StringUtils.appendNewLine;
 public class BoardTest {
 
     Board board;
-    BoardService boardService;
     Game game;
 
     @BeforeEach
     public void setUp() {
         board = new Board();
-        boardService = new BoardService(board);
         game = new Game(board);
         board.initialize();
     }
@@ -35,8 +33,8 @@ public class BoardTest {
     @Test
     @DisplayName("폰을 출력한다.")
     public void initialize() {
-        assertThat(boardService.getWhitePawnsResult()).isEqualTo("pppppppp");
-        assertThat(boardService.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
+        assertThat(board.getWhitePawnsResult()).isEqualTo("pppppppp");
+        assertThat(board.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
     }
 
     @Test
@@ -58,7 +56,7 @@ public class BoardTest {
     @Test
     @DisplayName("체스판의 전체 상태를 확인한다.")
     public void create() {
-        assertThat(32).isEqualTo(boardService.countPiece());
+        assertThat(32).isEqualTo(board.countPiece());
         assertThat(getInitStatusString())
                 .isEqualTo(game.showBoard());
     }
@@ -86,10 +84,10 @@ public class BoardTest {
     @Test
     @DisplayName("모든 룩의 위치를 확인한다.")
     public void findRook() {
-        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("a8"));
-        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("h8"));
-        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("a1"));
-        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(boardService.findPiece("h1"));
+        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("a8"));
+        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("h8"));
+        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("a1"));
+        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("h1"));
     }
 
     @Test
@@ -101,8 +99,8 @@ public class BoardTest {
 
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(shortPos));
-        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(longPos));
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(shortPos));
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(longPos));
     }
 
     @Test
@@ -113,7 +111,7 @@ public class BoardTest {
 
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(pos));
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(pos));
     }
 
     @Test
@@ -124,7 +122,7 @@ public class BoardTest {
 
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> boardService.findPiece(pos));
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(pos));
     }
 
     @Test
@@ -138,8 +136,8 @@ public class BoardTest {
         game.move(sourcePosition, targetPosition);
 
         //then
-        assertThat(boardService.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
-        assertThat(boardService.findPiece(targetPosition)).isEqualToComparingFieldByFieldRecursively(Piece.createPiece(Color.WHITE, Type.PAWN));
+        assertThat(board.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
+        assertThat(board.findPiece(targetPosition)).isEqualToComparingFieldByFieldRecursively(Piece.createPiece(Color.WHITE, Type.PAWN));
     }
 
     @Test
@@ -149,8 +147,8 @@ public class BoardTest {
         addPieces();
 
         //then
-        assertEquals(15.0, boardService.calculatePoint(Color.BLACK), 0.01);
-        assertEquals(7.5, boardService.calculatePoint(Color.WHITE), 0.01);
+        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
+        assertEquals(7.5, board.calculatePoint(Color.WHITE), 0.01);
 
         System.out.println(game.showBoard());
     }
@@ -162,8 +160,8 @@ public class BoardTest {
         addPieces();
 
         //when
-        List<Double> whitePoints = boardService.getPiecePointsAsc(Color.WHITE);
-        List<Double> blackPoints = boardService.getPiecePointsAsc(Color.BLACK);
+        List<Double> whitePoints = board.getPiecePointsAsc(Color.WHITE);
+        List<Double> blackPoints = board.getPiecePointsAsc(Color.BLACK);
 
         //then
         List<Double> expectedWhitePoints = Arrays.asList(0.0, 2.5, 5.0);
@@ -179,8 +177,8 @@ public class BoardTest {
         addPieces();
 
         //when
-        List<Double> whitePoints = boardService.getPiecePointsDesc(Color.WHITE);
-        List<Double> blackPoints = boardService.getPiecePointsDesc(Color.BLACK);
+        List<Double> whitePoints = board.getPiecePointsDesc(Color.WHITE);
+        List<Double> blackPoints = board.getPiecePointsDesc(Color.BLACK);
 
         //then
         List<Double> expectedWhitePoints = Arrays.asList(5.0, 2.5, 0.0);
@@ -230,12 +228,12 @@ public class BoardTest {
 
     private List<Long> getCountList(Color color) {
         List<Long> counts = new ArrayList<>();
-        counts.add(boardService.countPiece(color, Type.PAWN));
-        counts.add(boardService.countPiece(color, Type.ROOK));
-        counts.add(boardService.countPiece(color, Type.KNIGHT));
-        counts.add(boardService.countPiece(color, Type.BISHOP));
-        counts.add(boardService.countPiece(color, Type.KING));
-        counts.add(boardService.countPiece(color, Type.QUEEN));
+        counts.add(board.countPiece(color, Type.PAWN));
+        counts.add(board.countPiece(color, Type.ROOK));
+        counts.add(board.countPiece(color, Type.KNIGHT));
+        counts.add(board.countPiece(color, Type.BISHOP));
+        counts.add(board.countPiece(color, Type.KING));
+        counts.add(board.countPiece(color, Type.QUEEN));
 
         return counts;
     }
