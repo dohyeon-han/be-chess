@@ -3,9 +3,7 @@ package softeer2nd.chess;
 import softeer2nd.chess.util.PieceUtils;
 import softeer2nd.chess.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Board {
@@ -106,18 +104,22 @@ public class Board {
     }
 
     public double calculatePoint(PieceUtils.Color color) {
-        double sum = 0.0;
-        for (int i = 0; i < BOARD_LENGTH; i++) {
-            List<Piece> pieces = getColumnPieces(i, color);
-            long countPawn = pieces.stream().filter(piece -> piece.getType().equals(PieceUtils.Type.PAWN)).count();
+        Map<PieceUtils.Type, Double> typeDoubleMap = calculatePiecePointsByColumn(color);
+        return typeDoubleMap.values().stream()
+                .mapToDouble(Double::doubleValue)
+                .sum();
+    }
 
-            // 해당 열에 pawn이 2개 이상 있으면, pawn을 더할 때 반으로 값을 더한다.
-            sum += pieces.stream()
-                    .mapToDouble(piece -> piece.getType().getDefaultPoint() /
-                            (countPawn > 1 && piece.getType().equals(PieceUtils.Type.PAWN) ? 2.0 : 1.0))
-                    .sum();
-        }
-        return sum;
+    public List<Double> getPiecePointsDesc(PieceUtils.Color color) {
+        Map<PieceUtils.Type, Double> pointMap = calculatePiecePointsByColumn(color);
+        return pointMap.values().stream()
+                .mapToDouble(Double::doubleValue).boxed()
+                .sorted(Collections.reverseOrder())
+                .collect(Collectors.toList());
+    }
+
+    public List<Double> getPiecePointsAsc(PieceUtils.Color color) {
+        return getPiecePointsDesc(color).stream().sorted().collect(Collectors.toList());
     }
 
     private List<Integer> getValidPositions(String pos) {
@@ -142,5 +144,23 @@ public class Board {
                 .map(rank -> rank.getPiece(column))
                 .filter(piece -> piece.getColor().equals(color) && !piece.getType().equals(PieceUtils.Type.NO_PIECE))
                 .collect(Collectors.toList());
+    }
+
+    private Map<PieceUtils.Type, Double> calculatePiecePointsByColumn(PieceUtils.Color color) {
+        Map<PieceUtils.Type, Double> points = new HashMap<>();
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            List<Piece> pieces = getColumnPieces(i, color);
+            long countPawn = pieces.stream().filter(piece -> piece.getType().equals(PieceUtils.Type.PAWN)).count();
+
+            // 해당 열에 pawn이 2개 이상 있으면, pawn을 더할 때 반으로 값을 더한다.
+            pieces.forEach(piece -> {
+                double value = piece.getType().getDefaultPoint();
+                if (countPawn > 1 && piece.getType().equals(PieceUtils.Type.PAWN)) {
+                    value /= 2;
+                }
+                points.merge(piece.getType(), value, Double::sum);
+            });
+        }
+        return points;
     }
 }

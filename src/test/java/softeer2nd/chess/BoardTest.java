@@ -160,8 +160,8 @@ public class BoardTest {
         addPieces();
 
         //when
-        List<Double> whitePoints = board.getPointsAsc(Color.WHITE);
-        List<Double> blackPoints = board.getPointsAsc(Color.BLACK);
+        List<Double> whitePoints = board.getPiecePointsAsc(Color.WHITE);
+        List<Double> blackPoints = board.getPiecePointsAsc(Color.BLACK);
 
         //then
         List<Double> expectedWhitePoints = Arrays.asList(0.0, 2.5, 5.0);
@@ -177,8 +177,8 @@ public class BoardTest {
         addPieces();
 
         //when
-        List<Double> whitePoints = board.getPointsDesc(Color.WHITE);
-        List<Double> blackPoints = board.getPointsDesc(Color.BLACK);
+        List<Double> whitePoints = board.getPiecePointsDesc(Color.WHITE);
+        List<Double> blackPoints = board.getPiecePointsDesc(Color.BLACK);
 
         //then
         List<Double> expectedWhitePoints = Arrays.asList(5.0, 2.5, 0.0);
