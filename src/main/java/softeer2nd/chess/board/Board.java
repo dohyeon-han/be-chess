@@ -27,7 +27,7 @@ public class Board {
         for (int i = 0; i < BOARD_LENGTH; i++) {
             board.add(new Rank());
         }
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < BOARD_LENGTH; i++) {
             board.get(i).initialize(PieceUtils.Color.NOCOLOR, PieceUtils.Type.NO_PIECE);
         }
     }

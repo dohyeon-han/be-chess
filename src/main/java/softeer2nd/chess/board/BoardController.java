@@ -6,6 +6,8 @@ import softeer2nd.chess.util.StringUtils;
 
 import java.util.List;
 
+import static softeer2nd.chess.board.Board.BOARD_LENGTH;
+
 public class BoardController {
 
     private final Board board;
@@ -26,8 +28,8 @@ public class BoardController {
 
     public String showBoard() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            for (int j = 0; j < BOARD_LENGTH; j++) {
                 if (board.getBoard().get(i).getPiece(j).getType().equals(PieceUtils.Type.NO_PIECE)) {
                     builder.append('.');
                 } else {
