@@ -103,6 +103,17 @@ public class Board {
                 .replace(validPositions.get(0), piece);
     }
 
+    public void move(String source, String target) {
+        List<Integer> sourcePosition = getValidPositions(source);
+        List<Integer> targetPosition = getValidPositions(target);
+
+        Piece sourcePiece = this.board.get(sourcePosition.get(1)).getPiece(sourcePosition.get(0));
+        Piece targetPiece = this.board.get(targetPosition.get(1)).getPiece(targetPosition.get(0));
+
+        this.board.get(sourcePosition.get(1)).replace(sourcePosition.get(0), targetPiece);
+        this.board.get(targetPosition.get(1)).replace(targetPosition.get(0), sourcePiece);
+    }
+
     public double calculatePoint(PieceUtils.Color color) {
         Map<PieceUtils.Type, Double> typeDoubleMap = calculatePiecePointsByColumn(color);
         return typeDoubleMap.values().stream()

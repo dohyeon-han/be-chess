@@ -124,20 +124,18 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("빈 체스판에 검정룩을 b5에 놓는다.")
+    @DisplayName("폰을 b2에서 b3로 이동시킨다.")
     public void move() {
         //given
-        board.initializeEmpty();
-
-        String position = "b5";
-        Piece piece = Piece.createPiece(Color.BLACK, Type.ROOK);
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
 
         //when
-        board.move(position, piece);
+        board.move(sourcePosition, targetPosition);
 
         //then
-        assertThat(piece).isEqualToComparingFieldByFieldRecursively(board.findPiece(position));
-        System.out.println(board.showBoard());
+        assertThat(board.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
+        assertThat(board.findPiece(targetPosition)).isEqualToComparingFieldByFieldRecursively(Piece.createPiece(Color.WHITE, Type.PAWN));
     }
 
     @Test
