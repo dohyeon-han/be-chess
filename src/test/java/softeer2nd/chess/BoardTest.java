@@ -7,6 +7,9 @@ import softeer2nd.chess.util.PieceUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static softeer2nd.chess.util.StringUtils.appendNewLine;
@@ -51,40 +54,20 @@ public class BoardTest {
     @DisplayName("초기화한 체스판에서 흰 기물의 각 개수를 확인한다.")
     public void countWhitePiece() {
         //when
-        long pawn = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
-        long rook = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.ROOK);
-        long knight = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KNIGHT);
-        long bishop = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.BISHOP);
-        long king = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KING);
-        long queen = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.QUEEN);
+        List<Long> counts = getCountList(PieceUtils.Color.WHITE);
 
         //then
-        assertThat(pawn).isEqualTo(8);
-        assertThat(rook).isEqualTo(2);
-        assertThat(knight).isEqualTo(2);
-        assertThat(bishop).isEqualTo(2);
-        assertThat(king).isEqualTo(1);
-        assertThat(queen).isEqualTo(1);
+        verifyPiecesCount(counts);
     }
 
     @Test
     @DisplayName("초기화한 체스판에서 검정 기물의 각 개수를 확인한다.")
     public void countBlackPiece() {
         //when
-        long pawn = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN);
-        long rook = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.ROOK);
-        long knight = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KNIGHT);
-        long bishop = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.BISHOP);
-        long king = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.KING);
-        long queen = board.countPiece(PieceUtils.Color.WHITE, PieceUtils.Type.QUEEN);
+        List<Long> counts = getCountList(PieceUtils.Color.BLACK);
 
         //then
-        assertThat(pawn).isEqualTo(8);
-        assertThat(rook).isEqualTo(2);
-        assertThat(knight).isEqualTo(2);
-        assertThat(bishop).isEqualTo(2);
-        assertThat(king).isEqualTo(1);
-        assertThat(queen).isEqualTo(1);
+        verifyPiecesCount(counts);
     }
 
 
@@ -95,5 +78,26 @@ public class BoardTest {
                 blankRank + blankRank + blankRank + blankRank +
                 appendNewLine("pppppppp") +
                 appendNewLine("rnbqkbnr");
+    }
+
+    private List<Long> getCountList(PieceUtils.Color color) {
+        List<Long> counts = new ArrayList<>();
+        counts.add(board.countPiece(color, PieceUtils.Type.PAWN));
+        counts.add(board.countPiece(color, PieceUtils.Type.ROOK));
+        counts.add(board.countPiece(color, PieceUtils.Type.KNIGHT));
+        counts.add(board.countPiece(color, PieceUtils.Type.BISHOP));
+        counts.add(board.countPiece(color, PieceUtils.Type.KING));
+        counts.add(board.countPiece(color, PieceUtils.Type.QUEEN));
+
+        return counts;
+    }
+
+    private void verifyPiecesCount(List<Long> counts) {
+        final int LENGTH = 6;
+        List<Long> expectedCounts = new ArrayList<>(Arrays.asList(8L, 2L, 2L, 2L, 1L, 1L));
+        assertThat(counts).hasSize(LENGTH);
+        for (int i = 0; i < LENGTH; i++) {
+            assertThat(counts.get(i)).isEqualTo(expectedCounts.get(i));
+        }
     }
 }
