@@ -22,13 +22,13 @@ public class BoardTest {
 
     Board board;
     BoardService boardService;
-    BoardController boardController;
+    Game game;
 
     @BeforeEach
     public void setUp() {
         board = new Board();
         boardService = new BoardService(board);
-        boardController = new BoardController(board, boardService);
+        game = new Game(board);
         board.initialize();
     }
 
@@ -48,7 +48,7 @@ public class BoardTest {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
-        boardController.print();
+        game.print();
         assertThat(outputStreamCaptor.toString()).isEqualTo(getInitStatusString());
 
         // System.out을 이전의 PrintStream으로 복원
@@ -60,7 +60,7 @@ public class BoardTest {
     public void create() {
         assertThat(32).isEqualTo(boardService.countPiece());
         assertThat(getInitStatusString())
-                .isEqualTo(boardController.showBoard());
+                .isEqualTo(game.showBoard());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class BoardTest {
         String targetPosition = "b3";
 
         //when
-        boardController.move(sourcePosition, targetPosition);
+        game.move(sourcePosition, targetPosition);
 
         //then
         assertThat(boardService.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
@@ -152,7 +152,7 @@ public class BoardTest {
         assertEquals(15.0, boardService.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.5, boardService.calculatePoint(Color.WHITE), 0.01);
 
-        System.out.println(boardController.showBoard());
+        System.out.println(game.showBoard());
     }
 
     @Test
@@ -194,11 +194,11 @@ public class BoardTest {
     public void moveBlank() {
         //when
         //then
-        assertThrows(IllegalArgumentException.class, () -> boardController.move("a4", "a5"));
+        assertThrows(IllegalArgumentException.class, () -> game.move("a4", "a5"));
     }
 
     private void addPiece(String position, Piece piece) {
-        boardController.move(position, piece);
+        game.move(position, piece);
     }
 
     private String getInitStatusString() {

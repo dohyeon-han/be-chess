@@ -6,14 +6,12 @@ import softeer2nd.chess.util.StringUtils;
 
 import static softeer2nd.chess.Board.BOARD_LENGTH;
 
-public class BoardController {
+public class Game {
 
     private final Board board;
-    private final BoardService boardService;
 
-    public BoardController(Board board, BoardService boardService) {
+    public Game(Board board) {
         this.board = board;
-        this.boardService = boardService;
     }
 
     public void print() {
