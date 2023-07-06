@@ -185,6 +185,14 @@ public class BoardTest {
         assertThat(blackPoints).usingRecursiveFieldByFieldElementComparator().isEqualTo(expectedBlackPoints);
     }
 
+    @Test
+    @DisplayName("move의 시작점이 blank이면 오류가 발생한다.")
+    public void moveBlank() {
+        //when
+        //then
+        assertThrows(IllegalArgumentException.class, () -> board.move("a4", "a5"));
+    }
+
     private void addPiece(String position, Piece piece) {
         board.move(position, piece);
     }

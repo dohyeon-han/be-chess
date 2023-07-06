@@ -110,6 +110,10 @@ public class Board {
         Piece sourcePiece = this.board.get(sourcePosition.get(1)).getPiece(sourcePosition.get(0));
         Piece targetPiece = this.board.get(targetPosition.get(1)).getPiece(targetPosition.get(0));
 
+        if (sourcePiece.isBlank()) {
+            throw new IllegalArgumentException("이동할 수 있는 말이 없습니다.");
+        }
+
         this.board.get(sourcePosition.get(1)).replace(sourcePosition.get(0), targetPiece);
         this.board.get(targetPosition.get(1)).replace(targetPosition.get(0), sourcePiece);
     }
