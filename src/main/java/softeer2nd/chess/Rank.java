@@ -37,4 +37,8 @@ public class Rank {
     public Piece getPiece(int idx) {
         return this.rank.get(idx);
     }
+
+    public void replace(int idx, Piece piece) {
+        this.rank.set(idx, piece);
+    }
 }

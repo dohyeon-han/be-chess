@@ -118,6 +118,23 @@ public class BoardTest {
         assertThrows(IllegalArgumentException.class, () -> board.findPiece(pos));
     }
 
+    @Test
+    @DisplayName("빈 체스판에 검정룩을 b5에 놓는다.")
+    public void move() {
+        //given
+        board.initializeEmpty();
+
+        String position = "b5";
+        Piece piece = Piece.createPiece(Color.BLACK, Type.ROOK);
+
+        //when
+        board.move(position, piece);
+
+        //then
+        assertThat(piece).isEqualToComparingFieldByFieldRecursively(board.findPiece(position));
+        System.out.println(board.showBoard());
+    }
+
     private String getInitStatusString() {
         String blankRank = appendNewLine("........");
         return appendNewLine("RNBQKBNR") +

@@ -4,6 +4,7 @@ import softeer2nd.chess.util.PieceUtils;
 import softeer2nd.chess.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,9 +19,19 @@ public class Board {
         }
         initializeByColor(PieceUtils.Color.WHITE);
         initializeByColor(PieceUtils.Color.BLACK);
-        initializeBlank();
+        for (int i = 2; i < 6; i++) {
+            board.get(i).initialize(PieceUtils.Color.NOCOLOR, PieceUtils.Type.NO_PIECE);
+        }
     }
 
+    public void initializeEmpty() {
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            board.add(new Rank());
+        }
+        for (int i = 0; i < 8; i++) {
+            board.get(i).initialize(PieceUtils.Color.NOCOLOR, PieceUtils.Type.NO_PIECE);
+        }
+    }
 
     private void initializeByColor(PieceUtils.Color color) {
         int pawnRow = color.equals(PieceUtils.Color.BLACK) ? 1 : 6;
@@ -28,12 +39,6 @@ public class Board {
 
         board.get(pawnRow).initialize(color, PieceUtils.Type.PAWN);
         board.get(otherRow).initializeOthers(color);
-    }
-
-    private void initializeBlank() {
-        for (int i = 2; i < 6; i++) {
-            board.get(i).initialize(PieceUtils.Color.NOCOLOR, PieceUtils.Type.NO_PIECE);
-        }
     }
 
     public String getWhitePawnsResult() {
@@ -51,20 +56,9 @@ public class Board {
     }
 
     public Piece findPiece(String pos) {
-        if (pos.length() != 2) {
-            throw new IllegalArgumentException("위치값의 길이는 2입니다.");
-        }
-        char column = pos.charAt(0);
-        char row = pos.charAt(1);
-
-        if (column < 'a' || column > 'h') {
-            throw new IllegalArgumentException("열 값은 a~h입니다.");
-        }
-        if (row < '1' || row > '8') {
-            throw new IllegalArgumentException("열 값은 1~8입니다.");
-        }
-        return this.board.get(7 - (row - '1'))
-                .getPiece(column - 'a');
+        List<Integer> validPositions = getValidPositions(pos);
+        return this.board.get(validPositions.get(1))
+                .getPiece(validPositions.get(0));
     }
 
     public void print() {
@@ -101,5 +95,27 @@ public class Board {
                 .flatMap(List::stream)
                 .filter(piece -> piece.getColor().equals(color) && piece.getType().equals(type))
                 .count();
+    }
+
+    public void move(String pos, Piece piece) {
+        List<Integer> validPositions = getValidPositions(pos);
+        this.board.get(validPositions.get(1))
+                .replace(validPositions.get(0), piece);
+    }
+
+    private List<Integer> getValidPositions(String pos) {
+        if (pos.length() != 2) {
+            throw new IllegalArgumentException("위치값의 길이는 2입니다.");
+        }
+        char column = pos.charAt(0);
+        char row = pos.charAt(1);
+
+        if (column < 'a' || column > 'h') {
+            throw new IllegalArgumentException("열 값은 a~h입니다.");
+        }
+        if (row < '1' || row > '8') {
+            throw new IllegalArgumentException("열 값은 1~8입니다.");
+        }
+        return new ArrayList<>(Arrays.asList(column - 'a', 7 - (row - '1')));
     }
 }
