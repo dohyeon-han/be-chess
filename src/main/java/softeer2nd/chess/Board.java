@@ -14,6 +14,7 @@ public class Board {
     private final List<Rank> board = new ArrayList<>(BOARD_LENGTH);
 
     public void initialize() {
+        board.clear();
         for (int i = 0; i < BOARD_LENGTH; i++) {
             board.add(new Rank());
         }
@@ -25,6 +26,7 @@ public class Board {
     }
 
     public void initializeEmpty() {
+        board.clear();
         for (int i = 0; i < BOARD_LENGTH; i++) {
             board.add(new Rank());
         }
@@ -103,6 +105,20 @@ public class Board {
                 .replace(validPositions.get(0), piece);
     }
 
+    public double calculatePoint(PieceUtils.Color color) {
+        double sum = 0.0;
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            List<Piece> pieces = getColumnPieces(i, color);
+            long countPawn = pieces.stream().filter(piece -> piece.getType().equals(PieceUtils.Type.PAWN)).count();
+
+            // 해당 열에 pawn이 2개 이상 있으면, pawn을 더할 때 반으로 값을 더한다.
+            for (Piece piece : pieces) {
+                sum += piece.getType().getDefaultPoint() / (countPawn > 1 && piece.getType().equals(PieceUtils.Type.PAWN) ? 2.0 : 1.0);
+            }
+        }
+        return sum;
+    }
+
     private List<Integer> getValidPositions(String pos) {
         if (pos.length() != 2) {
             throw new IllegalArgumentException("위치값의 길이는 2입니다.");
@@ -117,5 +133,13 @@ public class Board {
             throw new IllegalArgumentException("열 값은 1~8입니다.");
         }
         return new ArrayList<>(Arrays.asList(column - 'a', 7 - (row - '1')));
+    }
+
+    // 같은 열의 같은 색 기물을 찾는다.
+    private List<Piece> getColumnPieces(int column, PieceUtils.Color color) {
+        return this.board.stream()
+                .map(rank -> rank.getPiece(column))
+                .filter(piece -> piece.getColor().equals(color) && !piece.getType().equals(PieceUtils.Type.NO_PIECE))
+                .collect(Collectors.toList());
     }
 }

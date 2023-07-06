@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static softeer2nd.chess.util.StringUtils.appendNewLine;
 
@@ -35,13 +36,17 @@ public class BoardTest {
     @Test
     @DisplayName("초기화한 체스판을 출력한다.")
     public void printInitialize() {
+        // 이전의 System.out 저장
+        PrintStream originalOut = System.out;
+
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
         board.print();
         assertThat(outputStreamCaptor.toString()).isEqualTo(getInitStatusString());
 
-        System.setOut(new PrintStream(System.out));
+        // System.out을 이전의 PrintStream으로 복원
+        System.setOut(originalOut);
     }
 
     @Test
@@ -133,6 +138,34 @@ public class BoardTest {
         //then
         assertThat(piece).isEqualToComparingFieldByFieldRecursively(board.findPiece(position));
         System.out.println(board.showBoard());
+    }
+
+    @Test
+    @DisplayName("색깔 별로 기물 점수의 합을 구한다.")
+    public void calculatePoint() throws Exception {
+        board.initializeEmpty();
+
+        addPiece("b6", Piece.createPiece(Color.BLACK, Type.PAWN));
+        addPiece("e6", Piece.createPiece(Color.BLACK, Type.QUEEN));
+        addPiece("b8", Piece.createPiece(Color.BLACK, Type.KING));
+        addPiece("c8", Piece.createPiece(Color.BLACK, Type.ROOK));
+
+        addPiece("g4", Piece.createPiece(Color.WHITE, Type.PAWN));
+        addPiece("g3", Piece.createPiece(Color.WHITE, Type.PAWN));
+        addPiece("g2", Piece.createPiece(Color.WHITE, Type.PAWN));
+        addPiece("f3", Piece.createPiece(Color.WHITE, Type.PAWN));
+        addPiece("f2", Piece.createPiece(Color.WHITE, Type.PAWN));
+        addPiece("e1", Piece.createPiece(Color.WHITE, Type.ROOK));
+        addPiece("f1", Piece.createPiece(Color.WHITE, Type.KING));
+
+        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
+        assertEquals(7.5, board.calculatePoint(Color.WHITE), 0.01);
+
+        System.out.println(board.showBoard());
+    }
+
+    private void addPiece(String position, Piece piece) {
+        board.move(position, piece);
     }
 
     private String getInitStatusString() {
