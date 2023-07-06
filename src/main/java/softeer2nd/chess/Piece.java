@@ -55,4 +55,8 @@ public class Piece {
     public boolean isBlack() {
         return this.color.equals(PieceUtils.Color.BLACK);
     }
+
+    public boolean isBlank() {
+        return this.color.equals(PieceUtils.Color.NOCOLOR) || this.type.equals(PieceUtils.Type.NO_PIECE);
+    }
 }

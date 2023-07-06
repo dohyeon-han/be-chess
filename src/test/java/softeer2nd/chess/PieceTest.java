@@ -74,6 +74,36 @@ class PieceTest {
         assertThat(blank.getType()).isEqualTo(Type.NO_PIECE);
     }
 
+    @Test
+    @DisplayName("NO COLOR는 blank piece이다")
+    public void checkNoColor() {
+        // given
+        Piece noColor = Piece.createPiece(Color.NOCOLOR, Type.PAWN);
+        Piece black = Piece.createPiece(Color.BLACK, Type.KING);
+
+        // when
+        boolean blank = noColor.isBlank();
+        boolean notBlank = black.isBlank();
+        // then
+        assertThat(blank).isTrue();
+        assertThat(notBlank).isFalse();
+    }
+
+    @Test
+    @DisplayName("NO PIECE는 blank piece이다")
+    public void checkNoPiece() {
+        // given
+        Piece noPiece = Piece.createPiece(Color.BLACK, Type.NO_PIECE);
+        Piece white = Piece.createPiece(Color.WHITE, Type.KNIGHT);
+
+        // when
+        boolean blank = noPiece.isBlank();
+        boolean notBlank = white.isBlank();
+        // then
+        assertThat(blank).isTrue();
+        assertThat(notBlank).isFalse();
+    }
+
     private void verifyPiece(final Piece whitePiece, final Piece blackPiece, final Type type) {
         assertThat(whitePiece.isWhite()).isTrue();
         assertThat(whitePiece.getType()).isEqualTo(type);
