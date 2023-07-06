@@ -146,8 +146,11 @@ public class Board {
                 .collect(Collectors.toList());
     }
 
+    // 같은 색의 기물을 기물 별로 map에 점수로 저장한다.
     private Map<PieceUtils.Type, Double> calculatePiecePointsByColumn(PieceUtils.Color color) {
         Map<PieceUtils.Type, Double> points = new HashMap<>();
+
+        // 열 별로 기물 점수 계산
         for (int i = 0; i < BOARD_LENGTH; i++) {
             List<Piece> pieces = getColumnPieces(i, color);
             long countPawn = pieces.stream().filter(piece -> piece.getType().equals(PieceUtils.Type.PAWN)).count();
