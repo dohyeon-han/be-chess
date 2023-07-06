@@ -50,6 +50,23 @@ public class Board {
                 .collect(Collectors.joining());
     }
 
+    public Piece findPiece(String pos) {
+        if (pos.length() != 2) {
+            throw new IllegalArgumentException("위치값의 길이는 2입니다.");
+        }
+        char column = pos.charAt(0);
+        char row = pos.charAt(1);
+
+        if (column < 'a' || column > 'h') {
+            throw new IllegalArgumentException("열 값은 a~h입니다.");
+        }
+        if (row < '1' || row > '8') {
+            throw new IllegalArgumentException("열 값은 1~8입니다.");
+        }
+        return this.board.get(7 - (row - '1'))
+                .getPiece(column - 'a');
+    }
+
     public void print() {
         System.out.print(showBoard());
     }
@@ -78,7 +95,7 @@ public class Board {
         return builder.toString();
     }
 
-    public long countPiece(PieceUtils.Color color, PieceUtils.Type type){
+    public long countPiece(PieceUtils.Color color, PieceUtils.Type type) {
         return board.stream()
                 .map(Rank::getRank)
                 .flatMap(List::stream)

@@ -3,7 +3,8 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.util.PieceUtils.*;
+import softeer2nd.chess.util.PieceUtils.Color;
+import softeer2nd.chess.util.PieceUtils.Type;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static softeer2nd.chess.util.StringUtils.appendNewLine;
 
 public class BoardTest {
@@ -68,6 +70,52 @@ public class BoardTest {
 
         //then
         verifyPiecesCount(counts);
+    }
+
+    @Test
+    @DisplayName("모든 룩의 위치를 확인한다.")
+    public void findRook() {
+        board.initialize();
+
+        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("a8"));
+        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("h8"));
+        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("a1"));
+        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK)).isEqualToComparingFieldByFieldRecursively(board.findPiece("h1"));
+    }
+
+    @Test
+    @DisplayName("기물을 찾는 인자의 길이가 3이 아니면 예외가 발생한다.")
+    public void findPieceLengthException() {
+        //given
+        String shortPos = "a";
+        String longPos = "b23";
+
+        //when
+        //then
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(shortPos));
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(longPos));
+    }
+
+    @Test
+    @DisplayName("기물을 찾는 행 1~8이 아니면 예외가 발생한다.")
+    public void findPieceRowException() {
+        //given
+        String pos = "a9";
+
+        //when
+        //then
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(pos));
+    }
+
+    @Test
+    @DisplayName("기물을 찾는 행 a~h가 아니면 예외가 발생한다.")
+    public void findPieceColumnException() {
+        //given
+        String pos = "i2";
+
+        //when
+        //then
+        assertThrows(IllegalArgumentException.class, () -> board.findPiece(pos));
     }
 
     private String getInitStatusString() {
