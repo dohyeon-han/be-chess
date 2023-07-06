@@ -143,6 +143,64 @@ public class BoardTest {
     @Test
     @DisplayName("색깔 별로 기물 점수의 합을 구한다.")
     public void calculatePoint() throws Exception {
+        //given
+        addPieces();
+
+        //then
+        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
+        assertEquals(7.5, board.calculatePoint(Color.WHITE), 0.01);
+
+        System.out.println(board.showBoard());
+    }
+
+    @Test
+    @DisplayName("기물 점수의 합을 오름차순 정렬한다.")
+    public void sumPiecesAsc() {
+        //given
+        addPieces();
+
+        //when
+        List<Double> whitePoints = board.getPointsAsc(Color.WHITE);
+        List<Double> blackPoints = board.getPointsAsc(Color.BLACK);
+
+        //then
+        List<Double> expectedWhitePoints = Arrays.asList(0.0, 2.5, 5.0);
+        List<Double> expectedBlackPoints = Arrays.asList(0.0, 1.0, 5.0, 9.0);
+        assertThat(whitePoints).usingRecursiveFieldByFieldElementComparator().isEqualTo(expectedWhitePoints);
+        assertThat(blackPoints).usingRecursiveFieldByFieldElementComparator().isEqualTo(expectedBlackPoints);
+    }
+
+    @Test
+    @DisplayName("기물 점수의 합을 내림차순 정렬한다.")
+    public void sumPiecesDesc() {
+        //given
+        addPieces();
+
+        //when
+        List<Double> whitePoints = board.getPointsDesc(Color.WHITE);
+        List<Double> blackPoints = board.getPointsDesc(Color.BLACK);
+
+        //then
+        List<Double> expectedWhitePoints = Arrays.asList(5.0, 2.5, 0.0);
+        List<Double> expectedBlackPoints = Arrays.asList(9.0, 5.0, 1.0, 0.0);
+        assertThat(whitePoints).usingRecursiveFieldByFieldElementComparator().isEqualTo(expectedWhitePoints);
+        assertThat(blackPoints).usingRecursiveFieldByFieldElementComparator().isEqualTo(expectedBlackPoints);
+    }
+
+    private void addPiece(String position, Piece piece) {
+        board.move(position, piece);
+    }
+
+    private String getInitStatusString() {
+        String blankRank = appendNewLine("........");
+        return appendNewLine("RNBQKBNR") +
+                appendNewLine("PPPPPPPP") +
+                blankRank + blankRank + blankRank + blankRank +
+                appendNewLine("pppppppp") +
+                appendNewLine("rnbqkbnr");
+    }
+
+    private void addPieces() {
         board.initializeEmpty();
 
         addPiece("b6", Piece.createPiece(Color.BLACK, Type.PAWN));
@@ -158,23 +216,6 @@ public class BoardTest {
         addPiece("e1", Piece.createPiece(Color.WHITE, Type.ROOK));
         addPiece("f1", Piece.createPiece(Color.WHITE, Type.KING));
 
-        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
-        assertEquals(7.5, board.calculatePoint(Color.WHITE), 0.01);
-
-        System.out.println(board.showBoard());
-    }
-
-    private void addPiece(String position, Piece piece) {
-        board.move(position, piece);
-    }
-
-    private String getInitStatusString() {
-        String blankRank = appendNewLine("........");
-        return appendNewLine("RNBQKBNR") +
-                appendNewLine("PPPPPPPP") +
-                blankRank + blankRank + blankRank + blankRank +
-                appendNewLine("pppppppp") +
-                appendNewLine("rnbqkbnr");
     }
 
     private List<Long> getCountList(Color color) {
