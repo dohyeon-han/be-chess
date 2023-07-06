@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.piece;
 
 import softeer2nd.chess.util.PieceUtils;
 

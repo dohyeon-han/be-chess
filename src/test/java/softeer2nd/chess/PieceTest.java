@@ -2,6 +2,7 @@ package softeer2nd.chess;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils.*;
 
 import static org.assertj.core.api.Assertions.assertThat;

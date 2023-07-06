@@ -3,6 +3,7 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils.Color;
 import softeer2nd.chess.util.PieceUtils.Type;
 

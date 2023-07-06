@@ -1,5 +1,6 @@
 package softeer2nd.chess;
 
+import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils;
 
 import java.util.ArrayList;
