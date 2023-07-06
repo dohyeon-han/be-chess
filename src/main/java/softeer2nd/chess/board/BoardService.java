@@ -1,5 +1,6 @@
 package softeer2nd.chess.board;
 
+import softeer2nd.chess.Position;
 import softeer2nd.chess.Rank;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils;
@@ -39,9 +40,9 @@ public class BoardService {
     }
 
     public Piece findPiece(String pos) {
-        List<Integer> validPositions = getValidPositions(pos);
-        return this.board.getBoard().get(validPositions.get(1))
-                .getPiece(validPositions.get(0));
+        Position position = new Position(pos);
+        return this.board.getBoard().get(position.getY())
+                .getPiece(position.getX());
     }
 
     public double calculatePoint(PieceUtils.Color color) {
@@ -88,6 +89,7 @@ public class BoardService {
 
         // 열 별로 기물 점수 계산
         for (int i = 0; i < BOARD_LENGTH; i++) {
+            System.out.println(i);
             List<Piece> pieces = getColumnPieces(i, color);
             long countPawn = pieces.stream().filter(piece -> piece.getType().equals(PieceUtils.Type.PAWN)).count();
 
@@ -97,25 +99,10 @@ public class BoardService {
                 if (countPawn > 1 && piece.getType().equals(PieceUtils.Type.PAWN)) {
                     value /= 2;
                 }
+                System.out.println(value);
                 points.merge(piece.getType(), value, Double::sum);
             });
         }
         return points;
-    }
-
-    public List<Integer> getValidPositions(String pos) {
-        if (pos.length() != 2) {
-            throw new IllegalArgumentException("위치값의 길이는 2입니다.");
-        }
-        char column = pos.charAt(0);
-        char row = pos.charAt(1);
-
-        if (column < 'a' || column > 'h') {
-            throw new IllegalArgumentException("열 값은 a~h입니다.");
-        }
-        if (row < '1' || row > '8') {
-            throw new IllegalArgumentException("열 값은 1~8입니다.");
-        }
-        return new ArrayList<>(Arrays.asList(column - 'a', 7 - (row - '1')));
     }
 }

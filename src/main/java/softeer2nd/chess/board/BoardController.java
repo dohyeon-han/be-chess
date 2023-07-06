@@ -1,10 +1,9 @@
 package softeer2nd.chess.board;
 
+import softeer2nd.chess.Position;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils;
 import softeer2nd.chess.util.StringUtils;
-
-import java.util.List;
 
 import static softeer2nd.chess.board.Board.BOARD_LENGTH;
 
@@ -42,23 +41,23 @@ public class BoardController {
     }
 
     public void move(String pos, Piece piece) {
-        List<Integer> validPositions = boardService.getValidPositions(pos);
-        this.board.getBoard().get(validPositions.get(1))
-                .replace(validPositions.get(0), piece);
+        Position position = new Position(pos);
+        this.board.getBoard().get(position.getY())
+                .replace(position.getX(), piece);
     }
 
     public void move(String source, String target) {
-        List<Integer> sourcePosition = boardService.getValidPositions(source);
-        List<Integer> targetPosition = boardService.getValidPositions(target);
+        Position sourcePosition = new Position(source);
+        Position targetPosition = new Position(target);
 
-        Piece sourcePiece = this.board.getBoard().get(sourcePosition.get(1)).getPiece(sourcePosition.get(0));
-        Piece targetPiece = this.board.getBoard().get(targetPosition.get(1)).getPiece(targetPosition.get(0));
+        Piece sourcePiece = this.board.getBoard().get(sourcePosition.getY()).getPiece(sourcePosition.getX());
+        Piece targetPiece = this.board.getBoard().get(targetPosition.getY()).getPiece(targetPosition.getX());
 
         if (sourcePiece.isBlank()) {
             throw new IllegalArgumentException("이동할 수 있는 말이 없습니다.");
         }
 
-        this.board.getBoard().get(sourcePosition.get(1)).replace(sourcePosition.get(0), targetPiece);
-        this.board.getBoard().get(targetPosition.get(1)).replace(targetPosition.get(0), sourcePiece);
+        this.board.getBoard().get(sourcePosition.getY()).replace(sourcePosition.getX(), targetPiece);
+        this.board.getBoard().get(targetPosition.getY()).replace(targetPosition.getX(), sourcePiece);
     }
 }
