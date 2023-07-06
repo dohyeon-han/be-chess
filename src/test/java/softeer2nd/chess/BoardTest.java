@@ -3,7 +3,7 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.util.PieceUtils;
+import softeer2nd.chess.util.PieceUtils.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -54,7 +54,7 @@ public class BoardTest {
     @DisplayName("초기화한 체스판에서 흰 기물의 각 개수를 확인한다.")
     public void countWhitePiece() {
         //when
-        List<Long> counts = getCountList(PieceUtils.Color.WHITE);
+        List<Long> counts = getCountList(Color.WHITE);
 
         //then
         verifyPiecesCount(counts);
@@ -64,12 +64,11 @@ public class BoardTest {
     @DisplayName("초기화한 체스판에서 검정 기물의 각 개수를 확인한다.")
     public void countBlackPiece() {
         //when
-        List<Long> counts = getCountList(PieceUtils.Color.BLACK);
+        List<Long> counts = getCountList(Color.BLACK);
 
         //then
         verifyPiecesCount(counts);
     }
-
 
     private String getInitStatusString() {
         String blankRank = appendNewLine("........");
@@ -80,14 +79,14 @@ public class BoardTest {
                 appendNewLine("rnbqkbnr");
     }
 
-    private List<Long> getCountList(PieceUtils.Color color) {
+    private List<Long> getCountList(Color color) {
         List<Long> counts = new ArrayList<>();
-        counts.add(board.countPiece(color, PieceUtils.Type.PAWN));
-        counts.add(board.countPiece(color, PieceUtils.Type.ROOK));
-        counts.add(board.countPiece(color, PieceUtils.Type.KNIGHT));
-        counts.add(board.countPiece(color, PieceUtils.Type.BISHOP));
-        counts.add(board.countPiece(color, PieceUtils.Type.KING));
-        counts.add(board.countPiece(color, PieceUtils.Type.QUEEN));
+        counts.add(board.countPiece(color, Type.PAWN));
+        counts.add(board.countPiece(color, Type.ROOK));
+        counts.add(board.countPiece(color, Type.KNIGHT));
+        counts.add(board.countPiece(color, Type.BISHOP));
+        counts.add(board.countPiece(color, Type.KING));
+        counts.add(board.countPiece(color, Type.QUEEN));
 
         return counts;
     }
