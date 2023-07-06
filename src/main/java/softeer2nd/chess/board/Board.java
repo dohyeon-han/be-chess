@@ -10,10 +10,6 @@ public class Board {
     public static final int BOARD_LENGTH = 8;
     private final List<Rank> board = new ArrayList<>(BOARD_LENGTH);
 
-    public Board() {
-        initialize();
-    }
-
     public void initialize() {
         board.clear();
         for (int i = 0; i < BOARD_LENGTH; i++) {
