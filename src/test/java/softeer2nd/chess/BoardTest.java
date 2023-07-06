@@ -52,7 +52,7 @@ public class BoardTest {
     @Test
     @DisplayName("체스판의 전체 상태를 확인한다.")
     public void create() {
-        assertThat(32).isEqualTo(board.pieceCount());
+        assertThat(32).isEqualTo(board.countPiece());
         assertThat(getInitStatusString())
                 .isEqualTo(board.showBoard());
     }

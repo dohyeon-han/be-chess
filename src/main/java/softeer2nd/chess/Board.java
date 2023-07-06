@@ -65,7 +65,7 @@ public class Board {
         System.out.print(showBoard());
     }
 
-    public long pieceCount() {
+    public long countPiece() {
         return this.board.stream()
                 .map(Rank::getRank)
                 .flatMap(List::stream)
