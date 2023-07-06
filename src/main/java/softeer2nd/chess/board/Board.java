@@ -1,5 +1,6 @@
-package softeer2nd.chess;
+package softeer2nd.chess.board;
 
+import softeer2nd.chess.Rank;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils;
 import softeer2nd.chess.util.StringUtils;

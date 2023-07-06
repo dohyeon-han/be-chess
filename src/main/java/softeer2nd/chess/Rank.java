@@ -6,7 +6,7 @@ import softeer2nd.chess.util.PieceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static softeer2nd.chess.Board.BOARD_LENGTH;
+import static softeer2nd.chess.board.Board.BOARD_LENGTH;
 
 public class Rank {
 
