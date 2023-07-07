@@ -4,10 +4,10 @@ import softeer2nd.chess.util.PieceUtils;
 
 public class Piece {
 
-    private final PieceUtils.Color color;
-    private final PieceUtils.Type type;
+    protected final PieceUtils.Color color;
+    protected final PieceUtils.Type type;
 
-    private Piece(PieceUtils.Color color, PieceUtils.Type type) {
+    protected Piece(PieceUtils.Color color, PieceUtils.Type type) {
         this.color = color;
         this.type = type;
     }
