@@ -76,5 +76,4 @@ class BishopTest {
         //then
         verify(bishop, times(1)).verifyMovePosition(source, target);
     }
-
 }
