@@ -1,62 +1,65 @@
 package softeer2nd.chess.piece;
 
-import softeer2nd.chess.util.PieceUtils;
+import softeer2nd.chess.util.PieceUtils.Color;
+import softeer2nd.chess.util.PieceUtils.Type;
 
-public class Piece {
+public abstract class Piece {
 
-    protected final PieceUtils.Color color;
-    protected final PieceUtils.Type type;
+    protected final Color color;
+    protected final Type type;
 
-    protected Piece(PieceUtils.Color color, PieceUtils.Type type) {
+    protected Piece(Color color, Type type) {
         this.color = color;
         this.type = type;
     }
 
-    public static Piece createPiece(PieceUtils.Color color, PieceUtils.Type type) {
-        if (color.equals(PieceUtils.Color.WHITE)) {
-            return createWhite(type);
-        } else if (color.equals(PieceUtils.Color.BLACK)) {
-            return createBlack(type);
+    public static Piece createPiece(Color color, Type type) {
+        if (color.equals(Color.NOCOLOR)) {
+            return Blank.createBlank();
         }
-        return createBlank();
+        boolean isWhite = color.equals(Color.WHITE);
+        switch (type) {
+            case PAWN:
+                return isWhite ? Pawn.createWhitePawn() : Pawn.createBlackPawn();
+            case ROOK:
+                return isWhite ? Rook.createWhiteRook() : Rook.createBlackRook();
+            case KNIGHT:
+                return isWhite ? Knight.createWhiteKnight() : Knight.createBlackKnight();
+            case BISHOP:
+                return isWhite ? Bishop.createWhiteBishop() : Bishop.createBlackBishop();
+            case KING:
+                return isWhite ? King.createWhiteKing() : King.createBlackKing();
+            case QUEEN:
+                return isWhite ? Queen.createWhiteQueen() : Queen.createBlackQueen();
+            default:
+                return Blank.createBlank();
+        }
     }
 
-    private static Piece createWhite(PieceUtils.Type type) {
-        return new Piece(PieceUtils.Color.WHITE, type);
-    }
-
-    private static Piece createBlack(PieceUtils.Type type) {
-        return new Piece(PieceUtils.Color.BLACK, type);
-    }
-
-    public static Piece createBlank() {
-        return new Piece(PieceUtils.Color.NOCOLOR, PieceUtils.Type.NO_PIECE);
-    }
-
-    public PieceUtils.Color getColor() {
+    public Color getColor() {
         return this.color;
     }
 
     public char getRepresentation() {
-        if (this.color.equals(PieceUtils.Color.WHITE)) {
+        if (this.color.equals(Color.WHITE)) {
             return this.type.getWhiteRepresentation();
         }
         return Character.toUpperCase(this.type.getBlackRepresentation());
     }
 
-    public PieceUtils.Type getType() {
+    public Type getType() {
         return this.type;
     }
 
     public boolean isWhite() {
-        return this.color.equals(PieceUtils.Color.WHITE);
+        return this.color.equals(Color.WHITE);
     }
 
     public boolean isBlack() {
-        return this.color.equals(PieceUtils.Color.BLACK);
+        return this.color.equals(Color.BLACK);
     }
 
     public boolean isBlank() {
-        return this.color.equals(PieceUtils.Color.NOCOLOR) || this.type.equals(PieceUtils.Type.NO_PIECE);
+        return this.color.equals(Color.NOCOLOR) || this.type.equals(Type.NO_PIECE);
     }
 }

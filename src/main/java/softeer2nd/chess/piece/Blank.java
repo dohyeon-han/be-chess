@@ -9,11 +9,7 @@ public class Blank extends Piece {
         super(color, type);
     }
 
-    public static Blank createWhiteBlank() {
-        return new Blank(Color.NOCOLOR, Type.NO_PIECE);
-    }
-
-    public static Blank createBlackBlank() {
+    public static Blank createBlank() {
         return new Blank(Color.NOCOLOR, Type.NO_PIECE);
     }
 }

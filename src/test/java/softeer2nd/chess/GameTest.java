@@ -3,6 +3,7 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.piece.Blank;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils;
 
@@ -32,7 +33,7 @@ public class GameTest {
         game.move(sourcePosition, targetPosition);
 
         //then
-        assertThat(board.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
+        assertThat(board.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Blank.createBlank());
         assertThat(board.findPiece(targetPosition)).isEqualToComparingFieldByFieldRecursively(Piece.createPiece(PieceUtils.Color.WHITE, PieceUtils.Type.PAWN));
     }
 

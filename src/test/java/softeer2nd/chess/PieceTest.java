@@ -2,6 +2,7 @@ package softeer2nd.chess;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.piece.Blank;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils.*;
 
@@ -69,7 +70,7 @@ class PieceTest {
         verifyPiece(Piece.createPiece(Color.WHITE, Type.QUEEN), Piece.createPiece(Color.BLACK, Type.QUEEN), Type.QUEEN);
         verifyPiece(Piece.createPiece(Color.WHITE, Type.KING), Piece.createPiece(Color.BLACK, Type.KING), Type.KING);
 
-        Piece blank = Piece.createBlank();
+        Piece blank = Blank.createBlank();
         assertThat(blank.isWhite()).isFalse();
         assertThat(blank.isBlack()).isFalse();
         assertThat(blank.getType()).isEqualTo(Type.NO_PIECE);

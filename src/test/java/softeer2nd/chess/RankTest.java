@@ -2,6 +2,7 @@ package softeer2nd.chess;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.piece.Blank;
 import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils;
 
@@ -24,7 +25,7 @@ public class RankTest {
         List<Piece> list = rank.getRank();
         assertThat(list).hasSize(8);
         for (Piece blank : rank.getRank()) {
-            assertThat(blank).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
+            assertThat(blank).isEqualToComparingFieldByFieldRecursively(Blank.createBlank());
         }
     }
 
