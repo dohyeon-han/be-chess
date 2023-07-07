@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Position;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class PawnTest {
@@ -78,6 +79,30 @@ public class PawnTest {
 
         //when, then
         verifyMove(pawn, source, target);
+    }
+
+    @Test
+    @DisplayName("흰 폰의 잘못된 이동은 예외가 발생한다.")
+    public void moveWhiteWrong() {
+        //given
+        Position source = new Position("a1");
+        Position target = new Position("a2");
+        Pawn pawn = spy(Pawn.createWhitePawn());
+
+        //when, then
+        assertThrows(IllegalArgumentException.class, () -> verifyMove(pawn, source, target));
+    }
+
+    @Test
+    @DisplayName("검정 폰의 잘못된 이동은 예외가 발생한다.")
+    public void moveBlackWrong() {
+        //given
+        Position source = new Position("g2");
+        Position target = new Position("g1");
+        Pawn pawn = spy(Pawn.createBlackPawn());
+
+        //when, then
+        assertThrows(IllegalArgumentException.class, () -> verifyMove(pawn, source, target));
     }
 
     private void verifyMove(Pawn pawn, Position source, Position target) {
