@@ -116,7 +116,6 @@ public class Board {
 
         // 열 별로 기물 점수 계산
         for (int i = 0; i < BOARD_LENGTH; i++) {
-            System.out.println(i);
             List<Piece> pieces = getColumnPieces(i, color);
             long countPawn = pieces.stream().filter(piece -> piece.getType().equals(PieceUtils.Type.PAWN)).count();
 
@@ -126,7 +125,6 @@ public class Board {
                 if (countPawn > 1 && piece.getType().equals(PieceUtils.Type.PAWN)) {
                     value /= 2;
                 }
-                System.out.println(value);
                 points.merge(piece.getType(), value, Double::sum);
             });
         }
