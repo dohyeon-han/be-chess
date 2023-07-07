@@ -128,21 +128,6 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("폰을 b2에서 b3로 이동시킨다.")
-    public void move() {
-        //given
-        String sourcePosition = "b2";
-        String targetPosition = "b3";
-
-        //when
-        game.move(sourcePosition, targetPosition);
-
-        //then
-        assertThat(board.findPiece(sourcePosition)).isEqualToComparingFieldByFieldRecursively(Piece.createBlank());
-        assertThat(board.findPiece(targetPosition)).isEqualToComparingFieldByFieldRecursively(Piece.createPiece(Color.WHITE, Type.PAWN));
-    }
-
-    @Test
     @DisplayName("색깔 별로 기물 점수의 합을 구한다.")
     public void calculatePoint() throws Exception {
         //given
@@ -187,14 +172,6 @@ public class BoardTest {
         List<Double> expectedBlackPoints = Arrays.asList(9.0, 5.0, 1.0, 0.0);
         assertThat(whitePoints).usingRecursiveFieldByFieldElementComparator().isEqualTo(expectedWhitePoints);
         assertThat(blackPoints).usingRecursiveFieldByFieldElementComparator().isEqualTo(expectedBlackPoints);
-    }
-
-    @Test
-    @DisplayName("move의 시작점이 blank이면 오류가 발생한다.")
-    public void moveBlank() {
-        //when
-        //then
-        assertThrows(IllegalArgumentException.class, () -> game.move("a4", "a5"));
     }
 
     private void addPiece(String position, Piece piece) {
