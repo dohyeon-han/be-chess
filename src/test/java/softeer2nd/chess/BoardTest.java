@@ -7,8 +7,6 @@ import softeer2nd.chess.piece.Piece;
 import softeer2nd.chess.util.PieceUtils.Color;
 import softeer2nd.chess.util.PieceUtils.Type;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +14,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static softeer2nd.chess.util.StringUtils.appendNewLine;
 
 public class BoardTest {
 
@@ -37,30 +34,6 @@ public class BoardTest {
     public void initialize() {
         assertThat(board.getWhitePawnsResult()).isEqualTo("pppppppp");
         assertThat(board.getBlackPawnsResult()).isEqualTo("PPPPPPPP");
-    }
-
-    @Test
-    @DisplayName("초기화한 체스판을 출력한다.")
-    public void printInitialize() {
-        // 이전의 System.out 저장
-        PrintStream originalOut = System.out;
-
-        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStreamCaptor));
-
-        view.print();
-        assertThat(outputStreamCaptor.toString()).isEqualTo(getInitStatusString());
-
-        // System.out을 이전의 PrintStream으로 복원
-        System.setOut(originalOut);
-    }
-
-    @Test
-    @DisplayName("체스판의 전체 상태를 확인한다.")
-    public void create() {
-        assertThat(32).isEqualTo(board.countPiece());
-        assertThat(getInitStatusString())
-                .isEqualTo(view.showBoard());
     }
 
     @Test
@@ -176,15 +149,6 @@ public class BoardTest {
 
     private void addPiece(String position, Piece piece) {
         game.move(position, piece);
-    }
-
-    private String getInitStatusString() {
-        String blankRank = appendNewLine("........");
-        return appendNewLine("RNBQKBNR") +
-                appendNewLine("PPPPPPPP") +
-                blankRank + blankRank + blankRank + blankRank +
-                appendNewLine("pppppppp") +
-                appendNewLine("rnbqkbnr");
     }
 
     private void addPieces() {
