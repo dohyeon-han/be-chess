@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Position;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class BishopTest {
@@ -54,6 +55,18 @@ class BishopTest {
 
         //when, then
         verifyMove(bishop, source, target);
+    }
+
+    @Test
+    @DisplayName("규칙에 맞지 않은 이동은 예외가 발생한다.")
+    public void wrongMove() {
+        //given
+        Position source = new Position("e5");
+        Position target = new Position("d2");
+        Bishop bishop = spy(Bishop.createBlackBishop());
+
+        //when, then
+        assertThrows(IllegalArgumentException.class, () -> verifyMove(bishop, source, target));
     }
 
     private void verifyMove(Bishop bishop, Position source, Position target) {
