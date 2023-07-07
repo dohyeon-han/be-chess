@@ -47,7 +47,7 @@ public class PawnTest {
 
     @Test
     @DisplayName("검정 폰은 위로 1칸 이동할 수 있다.")
-    public void moveUpWhitePawn() {
+    public void moveUpBlackPawn() {
         //given
         Position source = new Position("a2");
         Position target = new Position("a3");
@@ -59,7 +59,7 @@ public class PawnTest {
 
     @Test
     @DisplayName("검정 폰은 왼쪽 대각선 위로 이동할 수 있다.")
-    public void moveUpLeftWhitePawn() {
+    public void moveUpLeftBlackPawn() {
         //given
         Position source = new Position("b2");
         Position target = new Position("a3");
@@ -71,7 +71,7 @@ public class PawnTest {
 
     @Test
     @DisplayName("검정 폰은 오른쪽 대각선 위로 이동할 수 있다.")
-    public void moveUpRightWhitePawn() {
+    public void moveUpRightBlackPawn() {
         //given
         Position source = new Position("a2");
         Position target = new Position("b3");
@@ -99,6 +99,54 @@ public class PawnTest {
         //given
         Position source = new Position("g2");
         Position target = new Position("g1");
+        Pawn pawn = spy(Pawn.createBlackPawn());
+
+        //when, then
+        assertThrows(IllegalArgumentException.class, () -> verifyMove(pawn, source, target));
+    }
+
+    @Test
+    @DisplayName("흰 폰은 시작 줄에서 두 칸 아래로 이동할 수 있다.")
+    public void moveDownWhitePawnDouble() {
+        //given
+        Position source = new Position("g7");
+        Position target = new Position("g5");
+        Pawn pawn = spy(Pawn.createWhitePawn());
+
+        //when, then
+        verifyMove(pawn, source, target);
+    }
+
+    @Test
+    @DisplayName("흰 폰은 시작 줄이 아니라면 두 칸 아래로 이동할 수 없다.")
+    public void cannotMoveUpWhitePawnDouble() {
+        //given
+        Position source = new Position("g6");
+        Position target = new Position("g4");
+        Pawn pawn = spy(Pawn.createWhitePawn());
+
+        //when, then
+        assertThrows(IllegalArgumentException.class, () -> verifyMove(pawn, source, target));
+    }
+
+    @Test
+    @DisplayName("검정 폰은 시작 줄에서 두 칸 위로 이동할 수 있다.")
+    public void moveUpBlackPawnDouble() {
+        //given
+        Position source = new Position("a2");
+        Position target = new Position("a4");
+        Pawn pawn = spy(Pawn.createBlackPawn());
+
+        //when, then
+        verifyMove(pawn, source, target);
+    }
+
+    @Test
+    @DisplayName("검정 폰은 시작 줄이 아니라면 두 칸 위로 이동할 수 없다.")
+    public void cannotMoveUpBlackPawnDouble() {
+        //given
+        Position source = new Position("a3");
+        Position target = new Position("a5");
         Pawn pawn = spy(Pawn.createBlackPawn());
 
         //when, then
