@@ -22,11 +22,13 @@ public class BoardTest {
 
     Board board;
     Game game;
+    View view;
 
     @BeforeEach
     public void setUp() {
         board = new Board();
         game = new Game(board);
+        view = new View(board);
         board.initialize();
     }
 
@@ -46,7 +48,7 @@ public class BoardTest {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
 
-        game.print();
+        view.print();
         assertThat(outputStreamCaptor.toString()).isEqualTo(getInitStatusString());
 
         // System.out을 이전의 PrintStream으로 복원
@@ -58,7 +60,7 @@ public class BoardTest {
     public void create() {
         assertThat(32).isEqualTo(board.countPiece());
         assertThat(getInitStatusString())
-                .isEqualTo(game.showBoard());
+                .isEqualTo(view.showBoard());
     }
 
     @Test
@@ -150,7 +152,7 @@ public class BoardTest {
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.5, board.calculatePoint(Color.WHITE), 0.01);
 
-        System.out.println(game.showBoard());
+        System.out.println(view.showBoard());
     }
 
     @Test

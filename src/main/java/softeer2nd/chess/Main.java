@@ -6,6 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Board board = new Board();
         Game game = new Game(board);
+        View view = new View(board);
+
         boolean playing = false;
 
         Scanner sc = new Scanner(System.in);
@@ -16,14 +18,14 @@ public class Main {
                 playing = true;
                 System.out.println("체스를 시작합니다.");
                 game.initializeBoard();
-                game.print();
+                view.print();
             } else if (input.equals("end")) {
                 System.out.println("체스를 종료합니다.");
                 break;
             } else if (playing) {
                 String[] tokens = input.split(" ");
                 command(game, tokens);
-                game.print();
+                view.print();
             }
         }
     }
