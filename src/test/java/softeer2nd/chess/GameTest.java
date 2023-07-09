@@ -172,4 +172,26 @@ public class GameTest {
         //when, then
         assertThrows(IllegalArgumentException.class, () -> game.move(source, destination));
     }
+
+    @Test
+    @DisplayName("첫 턴에 흰 기물, 둘째 턴에 검정 기물을 움직일 수 있다.")
+    void moveWhite() {
+        //given
+        String whitePos = "a1";
+        String blackPos = "a8";
+
+        //when
+        game.checkTurn(whitePos);
+        game.checkTurn(blackPos);
+    }
+
+    @Test
+    @DisplayName("첫 턴에 검정 기물을 움직이면 예외가 발생한다.")
+    void invalidMoveBlack() {
+        //given
+        String pos = "a7";
+
+        //when
+        assertThrows(IllegalArgumentException.class, () -> game.checkTurn(pos));
+    }
 }

@@ -8,9 +8,11 @@ import softeer2nd.chess.util.PieceUtils;
 public class Game {
 
     private final Board board;
+    private final Turn turn;
 
     public Game(Board board) {
         this.board = board;
+        this.turn = new Turn();
     }
 
     public void initializeBoard() {
@@ -63,5 +65,28 @@ public class Game {
         this.board.replace(target, sourcePiece);
     }
 
+    private static class Turn {
+        boolean isWhite = true;
 
+        public boolean isWhiteTurn() {
+            return isWhite;
+        }
+
+        public boolean isBlackTurn() {
+            return !isWhite;
+        }
+
+        public void change() {
+            isWhite = !isWhite;
+        }
+    }
+
+    public void checkTurn(String pos) {
+        Piece piece = board.findPiece(pos);
+        if((piece.isWhite() && turn.isWhiteTurn()) || (piece.isBlack() && turn.isBlackTurn())) {
+            turn.change();
+            return;
+        }
+        throw new IllegalArgumentException((turn.isBlackTurn() ? "흰" : "검정") + " 기물을 움직일 차례입니다.");
+    }
 }

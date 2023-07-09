@@ -34,11 +34,12 @@ public class Main {
         try {
             if (tokens.length == 3) {
                 if (tokens[0].equals("move")) {
+                    game.checkTurn(tokens[1]);
                     game.move(tokens[1], tokens[2]);
                 }
             }
         } catch (Exception e) {
-            System.out.println("잘못된 명령입니다.");
+            System.out.println(e.getMessage());
         }
     }
 }
