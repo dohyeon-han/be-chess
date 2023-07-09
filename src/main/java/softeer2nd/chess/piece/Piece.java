@@ -1,5 +1,6 @@
 package softeer2nd.chess.piece;
 
+import softeer2nd.chess.Position;
 import softeer2nd.chess.util.PieceUtils.Color;
 import softeer2nd.chess.util.PieceUtils.Type;
 
@@ -12,6 +13,8 @@ public abstract class Piece {
         this.color = color;
         this.type = type;
     }
+
+    public abstract void verifyMovePosition(Position source, Position destination);
 
     public static Piece createPiece(Color color, Type type) {
         if (color.equals(Color.NOCOLOR)) {
