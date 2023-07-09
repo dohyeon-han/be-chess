@@ -26,7 +26,17 @@ public class Game {
             throw new IllegalArgumentException("이동할 수 있는 말이 없습니다.");
         }
 
+        // 기물 잡기
+//        if(!targetPiece.isBlank()) {
+//            if(sourcePiece.getColor().equals(targetPiece.getColor())){
+//                throw new IllegalArgumentException("색이 같은 기물이 있는 칸으로 이동할 수 없습니다.");
+//            }
+//            if(sourcePiece.getType().equals())
+//        }
+
         this.board.replace(source, targetPiece);
         this.board.replace(target, sourcePiece);
     }
+
+
 }
