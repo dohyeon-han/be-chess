@@ -24,8 +24,9 @@ public class View {
                 Piece piece = this.board.findPiece(i, j);
                 builder.append(piece.isBlank() ? '.' : piece.getRepresentation());
             }
-            builder.append(StringUtils.NEWLINE);
+            builder.append("  ").append(StringUtils.appendNewLine(String.valueOf(BOARD_LENGTH - i)));
         }
+        builder.append(StringUtils.NEWLINE).append(StringUtils.appendNewLine("abcdefgh"));
         return builder.toString();
     }
 }

@@ -3,6 +3,7 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.util.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -47,11 +48,15 @@ public class ViewTest {
     }
 
     private String getInitStatusString() {
-        String blankRank = appendNewLine("........");
-        return appendNewLine("RNBQKBNR") +
-                appendNewLine("PPPPPPPP") +
-                blankRank + blankRank + blankRank + blankRank +
-                appendNewLine("pppppppp") +
-                appendNewLine("rnbqkbnr");
+        return appendNewLine("RNBQKBNR  8") +
+                appendNewLine("PPPPPPPP  7") +
+                getBlankRank(6) + getBlankRank(5) + getBlankRank(4) + getBlankRank(3) +
+                appendNewLine("pppppppp  2") +
+                appendNewLine("rnbqkbnr  1") +
+                StringUtils.NEWLINE + StringUtils.appendNewLine("abcdefgh");
+    }
+
+    private String getBlankRank(int number) {
+        return appendNewLine("........  " + number);
     }
 }
