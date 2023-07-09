@@ -41,10 +41,6 @@ public class Board {
         board.get(otherRow).initializeOthers(color);
     }
 
-    public List<Rank> getBoard() {
-        return new ArrayList<>(this.board);
-    }
-
     public long countPiece() {
         return getFlatMap()
                 .filter(piece -> !piece.getType().equals(PieceUtils.Type.NO_PIECE))
@@ -67,8 +63,20 @@ public class Board {
 
     public Piece findPiece(String pos) {
         Position position = new Position(pos);
-        return this.board.get(position.getY())
-                .getPiece(position.getX());
+        return findPiece(position.getY(), position.getX());
+    }
+
+    public Piece findPiece(int row, int column) {
+        return this.board.get(row).getPiece(column);
+    }
+
+    public void replace(String pos, Piece piece) {
+        Position position = new Position(pos);
+        replace(position.getY(), position.getX(), piece);
+    }
+
+    public void replace(int row, int column, Piece piece) {
+        this.board.get(row).replace(column, piece);
     }
 
     public double calculatePoint(PieceUtils.Color color) {
