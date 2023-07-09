@@ -29,6 +29,22 @@ public class Game {
         Piece sourcePiece = this.board.findPiece(start.getY(), start.getX());
         Piece targetPiece = this.board.findPiece(end.getY(), end.getX());
 
+        validateInitiationPiece(sourcePiece, targetPiece);
+
+        sourcePiece.verifyMovePosition(start, end);
+        Direction requestDirection = Direction.getDirection(start, end);
+
+        validatePathMove(start, end, requestDirection);
+
+        if (sourcePiece.getType().equals(PieceUtils.Type.PAWN)) {
+            validatePawnMove(targetPiece, requestDirection);
+        }
+
+        this.board.replace(source, Blank.createBlank());
+        this.board.replace(target, sourcePiece);
+    }
+
+    private void validateInitiationPiece(Piece sourcePiece, Piece targetPiece) {
         if (sourcePiece.isBlank()) {
             throw new IllegalArgumentException("이동할 수 있는 말이 없습니다.");
         }
@@ -36,10 +52,9 @@ public class Game {
         if (!targetPiece.isBlank() && sourcePiece.getColor().equals(targetPiece.getColor())) {
             throw new IllegalArgumentException("같은 색의 기물을 잡을 수 없습니다.");
         }
+    }
 
-        sourcePiece.verifyMovePosition(start, end);
-        Direction requestDirection = Direction.getDirection(start, end);
-
+    private void validatePathMove(Position start, Position end, Direction requestDirection) {
         while (!start.equals(end)) {
             start.add(requestDirection.getXDegree(), requestDirection.getYDegree());
 
@@ -48,21 +63,19 @@ public class Game {
                 throw new IllegalArgumentException("해당 위치로 이동할 수 없습니다.");
             }
         }
+    }
 
-        if (sourcePiece.getType().equals(PieceUtils.Type.PAWN)) {
-            boolean isDiagonal = Direction.diagonalDirection().stream().anyMatch(direction -> direction.equals(requestDirection));
-            // 폰은 빈 곳으로 대각선 이동할 수 없다.
-            if (targetPiece.isBlank() && isDiagonal) {
-                throw new IllegalArgumentException("해당 위치로 이동할 수 없습니다.");
-            }
-            // 폰은 기물이 있는 곳으로 직선 이동할 수 없다.
-            if (!targetPiece.isBlank() && !isDiagonal) {
-                throw new IllegalArgumentException("해당 위치로 이동할 수 없습니다.");
-            }
+    private void validatePawnMove(Piece targetPiece, Direction requestDirection) {
+        boolean isDiagonal = Direction.diagonalDirection().stream().anyMatch(direction -> direction.equals(requestDirection));
+        // 폰은 빈 곳으로 대각선 이동할 수 없다.
+        if (targetPiece.isBlank() && isDiagonal) {
+            throw new IllegalArgumentException("해당 위치로 이동할 수 없습니다.");
+        }
+        // 폰은 기물이 있는 곳으로 직선 이동할 수 없다.
+        if (!targetPiece.isBlank() && !isDiagonal) {
+            throw new IllegalArgumentException("해당 위치로 이동할 수 없습니다.");
         }
 
-        this.board.replace(source, Blank.createBlank());
-        this.board.replace(target, sourcePiece);
     }
 
     private static class Turn {
@@ -83,7 +96,7 @@ public class Game {
 
     public void checkTurn(String pos) {
         Piece piece = board.findPiece(pos);
-        if((piece.isWhite() && turn.isWhiteTurn()) || (piece.isBlack() && turn.isBlackTurn())) {
+        if ((piece.isWhite() && turn.isWhiteTurn()) || (piece.isBlack() && turn.isBlackTurn())) {
             turn.change();
             return;
         }
