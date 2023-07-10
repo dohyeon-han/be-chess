@@ -22,7 +22,7 @@ public class View {
         for (int i = 0; i < BOARD_LENGTH; i++) {
             for (int j = 0; j < BOARD_LENGTH; j++) {
                 Piece piece = this.board.findPiece(i, j);
-                builder.append(piece.isBlank() ? '.' : piece.getRepresentation());
+                builder.append(piece.getRepresentation());
             }
             builder.append("  ").append(StringUtils.appendNewLine(String.valueOf(BOARD_LENGTH - i)));
         }

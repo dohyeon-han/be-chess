@@ -44,10 +44,10 @@ public abstract class Piece {
     }
 
     public char getRepresentation() {
-        if (this.color.equals(Color.WHITE)) {
-            return this.type.getWhiteRepresentation();
+        if (this.color.equals(Color.BLACK)) {
+            return Character.toUpperCase(this.type.getBlackRepresentation());
         }
-        return Character.toUpperCase(this.type.getBlackRepresentation());
+        return this.type.getWhiteRepresentation();
     }
 
     public Type getType() {
